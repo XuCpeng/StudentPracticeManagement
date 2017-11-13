@@ -12,13 +12,17 @@ import java.util.Set;
 public class User {
 
     @Id
+    @Column(name = "stu_id")
     private String stuId;
 
     @NotEmpty(message = "密码不能为空")
     private String pwd;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "stu_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @ManyToMany
+    @JoinTable(
+            name = "j_user_role",
+            joinColumns = {@JoinColumn(name = "stu_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roleSet=new HashSet<>();
 
 }
