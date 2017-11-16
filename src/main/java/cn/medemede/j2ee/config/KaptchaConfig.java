@@ -1,4 +1,4 @@
-package cn.medemede.j2ee.util;
+package cn.medemede.j2ee.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;

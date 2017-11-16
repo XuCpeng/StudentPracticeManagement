@@ -25,4 +25,11 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roleSet=new HashSet<>();
 
+    public Set<String> getRolesStringSet(){
+        Set<String> roleStringSet=new HashSet<>();
+        for (Role role:roleSet){
+            roleStringSet.add(role.getRoleName());
+        }
+        return roleStringSet;
+    }
 }

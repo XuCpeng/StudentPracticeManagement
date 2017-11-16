@@ -3,7 +3,7 @@ package cn.medemede.j2ee.enums;
 public enum ResultEnum {
     SUCCESS(0, "success"),
     UNKONW_ERROR(-1, "UNKONW ERROR"),
-
+    Unknown_Account(301,"UnknownAccount,账户不存在！"),
     ;
 
     private Integer code;

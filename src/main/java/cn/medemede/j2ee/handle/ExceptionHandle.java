@@ -1,7 +1,7 @@
 package cn.medemede.j2ee.handle;
 
 
-import cn.medemede.j2ee.exception.ExportException;
+import cn.medemede.j2ee.exception.MyException;
 import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.util.ResultUtil;
 import org.slf4j.Logger;
@@ -19,8 +19,8 @@ public class ExceptionHandle {
     @ResponseBody
     public Result handle(Exception e) {
 
-        if (e instanceof ExportException) {
-            return ResultUtil.error(((ExportException) e).getCode(), e.getMessage());
+        if (e instanceof MyException) {
+            return ResultUtil.error(((MyException) e).getCode(), e.getMessage());
         } else {
             logger.error("【系统异常】：{}", e);
             return ResultUtil.error(-1, "系统错误");

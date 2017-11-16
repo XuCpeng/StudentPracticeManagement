@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 @Table(name = "j_permission")
 @lombok.Data
-public class Permission {
+public class Permission implements org.apache.shiro.authz.Permission {
 
     @Id
     @GeneratedValue
@@ -22,4 +22,11 @@ public class Permission {
 //            joinColumns = {@JoinColumn(name = "perm_id")},
 //            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roleSet=new HashSet<>();
+
+    @Override
+    public boolean implies(org.apache.shiro.authz.Permission p) {
+
+
+        return false;
+    }
 }

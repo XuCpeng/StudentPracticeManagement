@@ -1,8 +1,6 @@
 package cn.medemede.j2ee.model;
 
-import lombok.Data;
-
-@Data
+@lombok.Data
 public class Result<T> {
 
     //错误码

@@ -6,16 +6,16 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ExportException extends RuntimeException {
+public class MyException extends RuntimeException {
 
     private Integer code;
 
-    public ExportException(Integer code,String message){
+    public MyException(Integer code, String message){
         super(message);
         this.code=code;
     }
 
-    public ExportException(ResultEnum resultEnum) {
+    public MyException(ResultEnum resultEnum) {
         super(resultEnum.getMessage());
         this.code = resultEnum.getCode();
     }
