@@ -16,7 +16,7 @@ public class HttpAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
-    @Pointcut("execution(public * cn.medemede.j2ee.controller.WordTestController.*(..))")
+    @Pointcut("execution(public * cn.medemede.j2ee.controller.*.*(..))")
     public void log() {
         logger.info("-->切入");
     }
@@ -54,6 +54,7 @@ public class HttpAspect {
     //获取服务端的响应数据
     @AfterReturning(returning = "o", pointcut = "log()")
     public void doAfterReturnint(Object o) {
+        if (o!=null)
         logger.info("response={}", o.toString());
     }
 

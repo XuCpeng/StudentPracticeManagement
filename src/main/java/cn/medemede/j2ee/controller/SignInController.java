@@ -1,5 +1,6 @@
 package cn.medemede.j2ee.controller;
 
+import cn.medemede.j2ee.enums.ResultEnum;
 import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.model.User;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -62,24 +63,18 @@ public class SignInController {
                 user.setStuId(stuId);
 
                 if(currentUser.hasRole("student")){
-                    result.setCode(200);
-                    result.setMsg("登陆成功，学生用户");
+                    result.setResultEnum(ResultEnum.STUDENT_LOGIN);
                 }else {
-                    result.setCode(201);
-                    result.setMsg("登陆成功,管理员");
+                    result.setResultEnum(ResultEnum.ADMAIN_LOGIN);
                 }
             } catch (ExcessiveAttemptsException e){
-                result.setCode(102);
-                result.setMsg("输错密码次数过多，用户被锁定！");
+                result.setResultEnum(ResultEnum.MORE_PWDERROR_LUCK);
 
             } catch (AuthenticationException e) {
-                e.printStackTrace();
-                result.setCode(100);
-                result.setMsg("登陆失败");
+               result.setResultEnum(ResultEnum.LOG_FILED);
             }
         }else{
-            result.setCode(101);
-            result.setMsg("请检查验证码");
+            result.setResultEnum(ResultEnum.CHECKCODE_ERROR);
         }
 
         return result;

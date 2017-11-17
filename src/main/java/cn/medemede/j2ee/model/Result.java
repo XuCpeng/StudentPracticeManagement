@@ -1,5 +1,7 @@
 package cn.medemede.j2ee.model;
 
+import cn.medemede.j2ee.enums.ResultEnum;
+
 @lombok.Data
 public class Result<T> {
 
@@ -18,6 +20,11 @@ public class Result<T> {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    public void setResultEnum(ResultEnum resultEnum){
+        this.code=resultEnum.getCode();
+        this.msg=resultEnum.getMessage();
     }
 
 }

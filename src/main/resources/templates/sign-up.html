@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -10,9 +11,129 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/region.js"></script>
     <title>注册</title>
 </head>
-<body>
+<body onload="selectProvince(1);">
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default" style="width:560px;margin:200px auto auto auto;text-align:center">
+            <div class="panel-heading"><h2>SIGN UP</h2></div>
+            <div class="panel-body" style="padding-right: 70px;padding-left:70px">
+                <form id="myform" action="${pageContext.request.contextPath}/JServlet" method="post">
+                    <div class="input-group" style="margin:0 auto;text-align: center">
+                        <input type="radio"  name="character" value="admin"/>管理员&nbsp;&nbsp;
+                        <input type="radio"  name="character" value="teacher"/>教师&nbsp;&nbsp;
+                        <input type="radio"  name="character" value="student"/>学生
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >姓名：</span>
+                        <input name="zname" type="text" class="form-control" aria-describedby="basic-addon1">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >性别：</span>
+                        <input type="radio" name="sex" value="男"/>男&nbsp;&nbsp;
+                        <input type="radio"  name="sex" value="女"/>女
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >出生日期：</span>
+                        <input type="date" class="form-control" name="borth" required="required"/>
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >联系方式：</span>
+                        <input type="text" class="form-control" name="phone" required="required"/>
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >Email：</span>
+                        <input type="text" class="form-control" name="email" required="required"/>
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >地区：</span>
+                        <label for="province"></label>
+                        <select id="province" class="form-control" onchange="selectCity(this);"
+                                name="province">
+                        </select>
+                        <label for="city"></label>
+                        <select id="city" class="form-control" onchange="selectCounty();"
+                                name="city">
+                        </select>
+                        <label for="county"></label>
+                        <select id="county" class="form-control" name="county">
+                        </select>
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >爱好：</span>
+                        <input type="checkbox"  name="favorite" value="读书">读书&nbsp;&nbsp;
 
+                        <input type="checkbox"  name="favorite" value="上网">上网&nbsp;&nbsp;
+
+                        <input type="checkbox" name="favorite" value="打游戏">打游戏
+                        <br>
+
+                        <input type="checkbox"  name="favorite" value="听歌">听歌&nbsp;&nbsp;
+
+                        <input type="checkbox" name="favorite" value="看电影">看电影&nbsp;&nbsp;
+
+                        <input type="checkbox"  name="favorite" value="动漫">动漫
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >用户名：</span>
+                        <input type="text" class="form-control" id="username" name="username" required="required"/>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible" id="usernameBox" role="alert"
+                         style="display: none">
+                        <b>Warning!</b> 用户名不得少于3位!
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon" >密码：</span>
+                        <input type="password" class="form-control" id="password" name="password" required="required"/>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible" id="pwdBox" role="alert"
+                         style="display: none"><b>Warning!</b>
+                        密码不得少于5位!
+                    </div><br>
+                    <div class="input-group" style="margin: 0 auto;text-align: center">
+                        <button class="btn btn-default"  onclick="check()" value="提交">提交</button>
+                    </div>
+
+                    <input type="hidden" name="actionName" value="Do_join">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function check() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username !== null && username.length > 2) {
+            if (password !== null && password.length > 4) {
+                $.ajax({
+                    url: "/javaweb/JServlet",
+                    type: "POST",
+                    dataType: "text",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    data: $("#myform").serialize(),
+                    success: function () {
+                        alert("注册成功！");
+                        window.location.href = "index.jsp";
+                    }
+                });
+            } else {
+                $("#pwdBox").show();
+            }
+        } else {
+            $("#usernameBox").show();
+        }
+    }
+
+    $("#username").click(function () {
+        $("#usernameBox").hide();
+    });
+    $("#password").click(function () {
+        $("#pwdBox").hide();
+    });
+</script>
 </body>
+
 </html>
