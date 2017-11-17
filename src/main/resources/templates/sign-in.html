@@ -22,17 +22,17 @@
             <div class="panel-heading"><h2>LOG IN</h2></div>
             <div class="panel-body">
                 <br>
-                <form id="myform" action="signin" method="post" role="form">
+                <form id="myform" action="/signin" method="post" role="form">
                     <div class="alert alert-warning alert-dismissible" id="nameBox" role="alert" style="display: none"><b>Warning!</b> 用户名不得少于3位!</div>
                     <div class="input-group">
                         <span class="input-group-addon" >用户名：</span>
-                        <input id="username" name="username" type="text" class="form-control" placeholder="Username" >
+                        <input id="stuId" name="stuId" type="text" class="form-control" placeholder="Username" >
                     </div>
                     <br>
                     <div class="alert alert-warning alert-dismissible" id="pwdBox" role="alert" style="display: none"><b>Warning!</b> 密码不得少于5位!</div>
                     <div class="input-group">
                         <span class="input-group-addon" >密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
-                        <input id="password" name="password" type="password" class="form-control" placeholder="password" >
+                        <input id="pwd" name="pwd" type="password" class="form-control" placeholder="password" >
                     </div>
                     <br>
                     <div class="alert alert-warning alert-dismissible" id="codeBox" role="alert" style="display: none"><b>Warning!</b> 验证码错误!</div>
@@ -69,8 +69,8 @@
         $("#codeBox").hide();
     });
     function check() {
-        var username = $("#username").val();
-        var password = $("#password").val();
+        var username = $("#stuId").val();
+        var password = $("#pwd").val();
 
         if (username !== null && username.length > 2) {
             if (password !== null && password.length > 4) {
@@ -81,16 +81,7 @@
                     contentType: "application/x-www-form-urlencoded; charset=utf-8",
                     data: $("#myform").serialize(),
                     success:function (data,status) {
-                        if(data.search("log_suc")!==-1){
-                            console.log("跳转");
-                            document.getElementById('myform').submit();
-                        }else if(data.search("errorCode")!==-1) {
-                            $("#codeBox").show();
-                        }else if(data.search("errorUserPwd")!==-1){
-                            alert("用户名或密码错误！请重新输入！");
-                        }else {
-                            alert("数据发送状态："+status+"\n【可能是数据库连接失败！】");
-                        }
+                        alert(data)
                     }
                 });
             } else {

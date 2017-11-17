@@ -9,6 +9,8 @@ public enum ResultEnum {
     MORE_PWDERROR_LUCK(102,"输错密码次数过多，用户被锁定！"),
     LOG_FILED(100,"登陆失败"),
     CHECKCODE_ERROR(101,"验证码错误"),
+    SAVEUSER_SUCCESS(400,"注册成功"),
+    USER_HEAD(401,"用户已存在"),
     ;
 
     private Integer code;

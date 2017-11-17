@@ -11,7 +11,7 @@ function selectProvince(parentId) {
     ddlCounty=document.getElementById("county");
     $.ajax({
         url: "/j2ee/getregion?parentId=" + parentId,
-        type: "POST",
+        type: "GET",
         dataType:"text",
         success: function (data) {
             province=data.split(",");
@@ -44,7 +44,7 @@ function selectCity(obj){
     ddlCounty.options.length=0;//clear
     var index = indexof(province,obj.value)+2;
     $.ajax({
-        url: "/j2ee/getregion?parentId=" + index,
+        url: "getregion?parentId=" + index,
         type: "POST",
         dataType:"text",
         success: function (data) {
@@ -66,7 +66,7 @@ function selectCounty() {
     var proviceIndex=$('#province').find('option:selected').text();
     var index = indexof(province,proviceIndex)+2;
     $.ajax({
-        url: "/j2ee/getregion?citySelected=" + citySelected+"&parentId="+index,
+        url: "getregion?citySelected=" + citySelected+"&parentId="+index,
         type: "POST",
         dataType:"text",
         success: function (data) {
