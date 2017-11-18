@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 
-@Controller
+@RestController
 public class SignInController {
 
     private final
