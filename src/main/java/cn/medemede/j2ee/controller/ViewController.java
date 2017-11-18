@@ -12,6 +12,11 @@ public class ViewController {
         return "sign-in";
     }
 
+    @GetMapping("/signin")
+    public String signin(){
+        return "sign-in";
+    }
+
     @GetMapping("/signup")
     public String signUp(){
         return "sign-up2";
