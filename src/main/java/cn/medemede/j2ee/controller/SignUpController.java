@@ -8,20 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@Controller
+@RestController
 public class SignUpController {
 
     @Resource
     private UserRepository userRepository;
-
-    @GetMapping("/signup")
-    public String signUp(){
-
-        return "sign-up2";
-    }
 
     @PostMapping("/signup")
     public Result doSignup(@RequestParam("stuId") String stuId,

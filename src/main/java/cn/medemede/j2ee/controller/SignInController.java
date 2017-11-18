@@ -37,11 +37,6 @@ public class SignInController {
         this.defaultKaptcha = defaultKaptcha;
     }
 
-    @RequestMapping("/")
-    public String index(){
-        return "sign-in";
-    }
-
     @PostMapping("/signin")
     public Result signIn(@RequestParam("stuId")String stuId,
                          @RequestParam("pwd") String pwd,
