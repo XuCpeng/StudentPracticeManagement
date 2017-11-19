@@ -154,7 +154,13 @@
 
     //  提交后
     function showResponse(responseText, statusText)  {
-        alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
+
+        if(statusText==="success"&&responseText.code===400){
+            alert(responseText.msg);
+            window.location.href="signin";
+        }else {
+            alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
+        }
     }
 
     function RefreshCode() {

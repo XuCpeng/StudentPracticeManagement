@@ -22,4 +22,14 @@ public class ViewController {
         return "sign-up2";
     }
 
+    @GetMapping("/stuinfo")
+    public String stuinfo(){
+        return "stu-info";
+    }
+
+    @GetMapping("/admininfo")
+    public String admininfo(){
+        return "admin-info";
+    }
+
 }
