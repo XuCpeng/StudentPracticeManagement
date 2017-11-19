@@ -49,6 +49,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         if(user==null){
             throw new MyException(ResultEnum.Unknown_Account);
         }
+
         return new SimpleAuthenticationInfo(username, user.getPwd(), ByteSource.Util.bytes(username), getName());
     }
+
+
 }

@@ -1,6 +1,7 @@
 package cn.medemede.j2ee.config;
 
 import cn.medemede.j2ee.shiro.MyShiroRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -27,31 +28,45 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
+
         //配置登录的url和登录成功的url
         bean.setLoginUrl("/");
         bean.setSuccessUrl("/home");
+        bean.setUnauthorizedUrl("/unauthorized");
+
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
         filterChainDefinitionMap.put("/**", "anon"); //表示可以匿名访问
-        filterChainDefinitionMap.put("/signup", "anon");
-        filterChainDefinitionMap.put("/checkcode*", "anon");
-        filterChainDefinitionMap.put("/getregion*", "anon");
-        filterChainDefinitionMap.put("/logout*","anon");
-        filterChainDefinitionMap.put("/js/*","anon");
         filterChainDefinitionMap.put("/*", "anon");//表示需要认证才可以访问  //authc
-        filterChainDefinitionMap.put("/**", "anon");//表示需要认证才可以访问
         filterChainDefinitionMap.put("/*.*", "anon");
+        filterChainDefinitionMap.put("/logout", "logout");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
+
     }
 
     //配置核心安全事务管理器
     @Bean(name="securityManager")
     public SecurityManager securityManager(@Qualifier("myShiroRealm") MyShiroRealm myShiroRealm) {
         logger.info("--------------shiro已经加载----------------");
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());  //插入密码匹配管理器
         DefaultWebSecurityManager manager=new DefaultWebSecurityManager();
         manager.setRealm(myShiroRealm);
+
         return manager;
+    }
+
+    /**
+     * 密码匹配凭证管理器
+     */
+    @Bean(name = "hashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");// 散列算法:这里使用MD5算法;
+        hashedCredentialsMatcher.setHashIterations(1024);  // 散列的次数，比如散列两次，相当于md5(md5(""));
+        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(false);  //启用base64编码，true时为Hash编码
+        return hashedCredentialsMatcher;
     }
 
     @Bean

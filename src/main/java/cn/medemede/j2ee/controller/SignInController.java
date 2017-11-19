@@ -65,7 +65,6 @@ public class SignInController {
                 }
             } catch (ExcessiveAttemptsException e){
                 result.setResultEnum(ResultEnum.MORE_PWDERROR_LUCK);
-
             } catch (AuthenticationException e) {
                result.setResultEnum(ResultEnum.LOG_FILED);
             }
