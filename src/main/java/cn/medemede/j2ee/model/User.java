@@ -23,11 +23,11 @@ public class User {
             name = "j_user_role",
             joinColumns = {@JoinColumn(name = "stu_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roleSet=new HashSet<>();
+    private Set<Role> userRoleSet=new HashSet<>();
 
     public Set<String> getRolesStringSet(){
         Set<String> roleStringSet=new HashSet<>();
-        for (Role role:roleSet){
+        for (Role role:userRoleSet){
             roleStringSet.add(role.getRoleName());
         }
         return roleStringSet;

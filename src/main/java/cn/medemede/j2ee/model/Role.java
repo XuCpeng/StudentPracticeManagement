@@ -25,11 +25,7 @@ public class Role {
             inverseJoinColumns = {@JoinColumn(name = "perm_id")})
     private Set<Permission> permissionSet;
 
-    @ManyToMany(mappedBy = "roleSet")
-//    @JoinTable(
-//            name = "j_user_role",
-//            joinColumns = {@JoinColumn(name = "role_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "stu_id")})
+    @ManyToMany(mappedBy = "userRoleSet")
     private Set<User> userSet=new HashSet<>();
 
 

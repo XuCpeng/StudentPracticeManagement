@@ -17,10 +17,6 @@ public class Permission implements org.apache.shiro.authz.Permission {
     private String permName;
 
     @ManyToMany(mappedBy = "permissionSet")
-//    @JoinTable(
-//            name = "j_user_role",
-//            joinColumns = {@JoinColumn(name = "perm_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roleSet=new HashSet<>();
 
     @Override

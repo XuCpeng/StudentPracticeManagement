@@ -27,7 +27,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             info.setRoles(user.getRolesStringSet());
-            for (Role role : user.getRoleSet()) {
+            for (Role role : user.getUserRoleSet()) {
                 info.addStringPermissions(role.getPermsStringSet());
             }
             return info;

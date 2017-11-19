@@ -29,6 +29,13 @@
             <div class="panel-body">
                 <br>
                 <form id="sign_up_form" action="signup" method="post" role="form">
+                    <div class="input-group">
+                        <span class="input-group-addon">角色：</span>
+                        <input name="roleName" type="radio" value="stu">学生
+                        &nbsp;&nbsp;
+                        <input name="roleName" type="radio" value="admin">管理员
+                    </div>
+                    <br>
                     <div class="alert alert-warning alert-dismissible" id="nameBox" role="alert" style="display: none">
                         <b>Warning!</b> 用户名不得少于3位!
                     </div>
