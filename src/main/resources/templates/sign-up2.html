@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -72,7 +73,7 @@
                     <br><br><br>
                     <input type="hidden" name="actionName" value="Log_check">
                     <div>
-                        <input class="btn btn-default" type="button" onclick="check()" value="注册">
+                        <input class="btn btn-default" type="submit"  value="注册">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <input class="btn btn-default" type="button" onclick="location='signin'" value="返回登陆">
                     </div>
@@ -95,7 +96,37 @@
         $("#codeNullBox").hide();
         $("#codeErrorBox").hide();
     });
-    function check() {
+
+    $(document).ready(function () {
+        var options = {
+            //target:        '#output1',   // 用服务器返回的数据 更新 id为output1的内容.
+            beforeSubmit:  showRequest,  // 提交前
+            success:       showResponse,  // 提交后
+            //另外的一些属性:
+            //url:       url,         // 默认是form的action，如果写的话，会覆盖from的action.
+            //type:      type,        // 默认是form的method，如果写的话，会覆盖from的method.('get' or 'post').
+            dataType:  'json',        // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+            //clearForm: true,        // 成功提交后，清除所有的表单元素的值.
+            //resetForm: true,        // 成功提交后，重置所有的表单元素的值.
+
+
+            //timeout:   3000 //当请求大于3秒后，跳出请求.
+        };
+
+
+        $('#sign_up_form').ajaxForm(options);
+
+        //$('#myForm').submit(function() {
+        //    $(this).ajaxSubmit(options);
+        //    return false; //来阻止浏览器提交.
+        //});
+    });
+
+    // 提交前
+    function showRequest(formData, jqForm, options) {
+        // formdata是数组对象,在这里，我们使用$.param()方法把他转化为字符串.
+        //var queryString = $.param(formData); //组装数据，插件会自动提交数据
+
         var username = $("#stuId").val();
         var password = $("#pwd").val();
         var passwordCK=$("#pwdck").val();
@@ -118,23 +149,18 @@
             flag=false;
         }
 
-        if(flag){
-            $.ajax({
-                url: "signup",
-                type: "POST",
-                dataType: "text",
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                data: $("#sign_up_form").serialize(),
-                success: function (data, status) {
+        return flag;
+    }
 
-                }
-            });
-        }
+    //  提交后
+    function showResponse(responseText, statusText)  {
+        alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
     }
 
     function RefreshCode() {
         document.getElementById("codeImg").src = document.getElementById("codeImg").src + "?nocache=" + new Date().getTime();
     }
+
 </script>
 </body>
 </html>

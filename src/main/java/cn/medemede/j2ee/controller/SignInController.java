@@ -39,9 +39,9 @@ public class SignInController {
     }
 
     @PostMapping("/signin")
-    public Result signIn(@RequestParam("stuId")String stuId,
-                         @RequestParam("pwd") String pwd,
-                         @RequestParam("checkcode")String checkcode,
+    public Result signIn(@RequestParam String stuId,
+                         @RequestParam String pwd,
+                         @RequestParam String checkcode,
                          HttpServletRequest request){
         Result result = new Result();
         HttpSession session = request.getSession();
