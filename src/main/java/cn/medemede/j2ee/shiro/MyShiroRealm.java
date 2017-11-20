@@ -2,9 +2,9 @@ package cn.medemede.j2ee.shiro;
 
 import cn.medemede.j2ee.enums.ResultEnum;
 import cn.medemede.j2ee.exception.MyException;
-import cn.medemede.j2ee.model.Role;
 import cn.medemede.j2ee.model.User;
 import cn.medemede.j2ee.repository.UserRepository;
+import cn.medemede.j2ee.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -15,21 +15,24 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service()
+@Service
 public class MyShiroRealm extends AuthorizingRealm {
+
+    @Resource
+    private UserService userService;
 
     @Resource
     private UserRepository userRepository;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        User user= userRepository.findOne((String) principals.getPrimaryPrincipal());
+        String stuId=(String) principals.getPrimaryPrincipal();
+        User user=userRepository.findOne(stuId);
+
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-            info.setRoles(user.getRolesStringSet());
-            for (Role role : user.getUserRoleSet()) {
-                info.addStringPermissions(role.getPermsStringSet());
-            }
+            info.setRoles(userService.getRolesStringSet(stuId));
+            info.addStringPermissions(userService.getPermsStringSet(stuId));
             return info;
         } else {
             return null;

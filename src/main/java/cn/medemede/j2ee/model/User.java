@@ -1,7 +1,10 @@
 package cn.medemede.j2ee.model;
 
+import cn.medemede.j2ee.repository.JRolePerm2Repository;
+import cn.medemede.j2ee.repository.JUserRole2Repository;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.annotation.Resource;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,14 +21,7 @@ public class User {
     @NotEmpty(message = "密码不能为空")
     private String pwd;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Role> userRoleSet=new HashSet<>();
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private Set<Role> userRoleSet=new HashSet<>();
 
-    public Set<String> getRolesStringSet(){
-        Set<String> roleStringSet=new HashSet<>();
-        for (Role role:userRoleSet){
-            roleStringSet.add(role.getRoleName());
-        }
-        return roleStringSet;
-    }
 }

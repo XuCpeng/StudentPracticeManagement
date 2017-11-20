@@ -3,7 +3,7 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://118.89.168.177:3306/j2ee  #?characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/j2ee  #?characterEncoding=utf8&useSSL=true 118.89.168.177
     username: root
     password: pengfei
     druid:
