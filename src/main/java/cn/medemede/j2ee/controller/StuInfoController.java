@@ -24,6 +24,7 @@ public class StuInfoController {
     public String getStuInfo(@PathVariable("stuId") String stuId, Model model){
         Result result=new Result();
         AcProve acProve=acProveRepository.findOne(stuId);
+
         System.out.println(acProve.getStuName());
         model.addAttribute("acProve",acProve);
 

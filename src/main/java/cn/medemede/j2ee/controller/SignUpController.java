@@ -24,7 +24,8 @@ public class SignUpController {
     @PostMapping("/signup")
     public Result doSignup(@RequestParam("stuId") String stuId,
                            @RequestParam("pwd") String pwd,
-                           @RequestParam("roleName") String roleName){
+                           @RequestParam("roleName") String roleName,
+                           @RequestParam("stuName") String stuName){
 
         User user=new User();
         user.setStuId(stuId);
@@ -34,7 +35,11 @@ public class SignUpController {
         jUserRole2.setStuId(stuId);
         jUserRole2.setRoleName(roleName);
 
-        return userService.addUser(user,jUserRole2);
+        AcProve acProve=new AcProve();
+        acProve.setStuId(stuId);
+        acProve.setStuName(stuName);
+
+        return userService.addUser(user,jUserRole2,acProve);
     }
 
 }

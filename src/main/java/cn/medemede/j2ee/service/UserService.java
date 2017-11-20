@@ -1,10 +1,8 @@
 package cn.medemede.j2ee.service;
 
 import cn.medemede.j2ee.enums.ResultEnum;
-import cn.medemede.j2ee.model.JRolePerm2;
-import cn.medemede.j2ee.model.JUserRole2;
-import cn.medemede.j2ee.model.Result;
-import cn.medemede.j2ee.model.User;
+import cn.medemede.j2ee.model.*;
+import cn.medemede.j2ee.repository.AcProveRepository;
 import cn.medemede.j2ee.repository.JRolePerm2Repository;
 import cn.medemede.j2ee.repository.JUserRole2Repository;
 import cn.medemede.j2ee.repository.UserRepository;
@@ -34,6 +32,9 @@ public class UserService {
     @Resource
     private JRolePerm2Repository jRolePerm2Repository;
 
+    @Resource
+    private AcProveRepository acProveRepository;
+
     public Set<String> getRolesStringSet(String stuId){
         Set<String> roleStringSet=new HashSet<>();
         for (JUserRole2 jUserRole2:jUserRole2Repository.findByStuId(stuId)){
@@ -51,7 +52,7 @@ public class UserService {
         return permsStringSet;
     }
 
-    public Result addUser(User user, JUserRole2 jUserRole2){
+    public Result addUser(User user, JUserRole2 jUserRole2, AcProve acProve){
 
         Result result=new Result();
         if (userRepository.findOne(user.getStuId())!=null)
@@ -61,6 +62,7 @@ public class UserService {
             user.setPwd(passwordService.UpdatePass(user.getStuId(),user.getPwd()));
             userRepository.save(user);
             jUserRole2Repository.save(jUserRole2);
+            acProveRepository.save(acProve);
             result.setResultEnum(ResultEnum.SAVEUSER_SUCCESS);
         }
 

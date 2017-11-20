@@ -143,7 +143,7 @@
     function showResponse(responseText, statusText)  {
         if(statusText==="success"){
             if(responseText.code===200){
-                window.location.href="stuinfo2/"+$("#stuId").val();
+                window.location.href="stuinfo/"+$("#stuId").val();
             }else if(responseText.code===201){
                 window.location.href="admininfo";
             }else {
