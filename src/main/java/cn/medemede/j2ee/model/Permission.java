@@ -16,7 +16,7 @@ public class Permission implements org.apache.shiro.authz.Permission {
 
     private String permName;
 
-    @ManyToMany(mappedBy = "permissionSet")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "permissionSet")
     private Set<Role> roleSet=new HashSet<>();
 
     @Override

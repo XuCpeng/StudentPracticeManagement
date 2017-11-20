@@ -18,16 +18,11 @@ public class Role {
 
     private String roleName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "j_role_perm",
-            joinColumns ={@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "perm_id")})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Permission> permissionSet;
 
-    @ManyToMany(mappedBy = "userRoleSet")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "userRoleSet")
     private Set<User> userSet=new HashSet<>();
-
 
     public Set<String> getPermsStringSet(){
         Set<String> permsStringSet=new HashSet<>();

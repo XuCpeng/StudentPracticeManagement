@@ -18,11 +18,7 @@ public class User {
     @NotEmpty(message = "密码不能为空")
     private String pwd;
 
-    @ManyToMany
-    @JoinTable(
-            name = "j_user_role",
-            joinColumns = {@JoinColumn(name = "stu_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Role> userRoleSet=new HashSet<>();
 
     public Set<String> getRolesStringSet(){
