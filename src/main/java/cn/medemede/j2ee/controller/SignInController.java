@@ -38,6 +38,14 @@ public class SignInController {
         this.defaultKaptcha = defaultKaptcha;
     }
 
+    /**
+     * 登陆
+     * @param stuId
+     * @param pwd
+     * @param checkcode
+     * @param request
+     * @return
+     */
     @PostMapping("/signin")
     public Result signIn(@RequestParam String stuId,
                          @RequestParam String pwd,
@@ -58,10 +66,12 @@ public class SignInController {
                 User user=new User();
                 user.setStuId(stuId);
 
-                if(currentUser.hasRole("student")){
+                if(currentUser.hasRole("stu")){
                     result.setResultEnum(ResultEnum.STUDENT_LOGIN);
-                }else {
+                }else if(currentUser.hasRole("admin")) {
                     result.setResultEnum(ResultEnum.ADMAIN_LOGIN);
+                }else {
+                    result.setResultEnum(ResultEnum.Unknown_Account);
                 }
             } catch (ExcessiveAttemptsException e){
                 result.setResultEnum(ResultEnum.MORE_PWDERROR_LUCK);
@@ -75,6 +85,13 @@ public class SignInController {
         return result;
     }
 
+
+    /**
+     * 验证码
+     * @param response
+     * @param request
+     * @throws IOException
+     */
     @RequestMapping("/checkcode")
     public void getCheckCode(HttpServletResponse response, HttpServletRequest request) throws IOException {
 

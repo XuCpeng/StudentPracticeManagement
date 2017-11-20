@@ -15,6 +15,9 @@ import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 用户处理
+ */
 @Service
 public class UserService {
 

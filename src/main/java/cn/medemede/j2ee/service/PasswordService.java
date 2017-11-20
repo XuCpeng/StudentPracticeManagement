@@ -4,6 +4,9 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Service;
 
+/**
+ * 密码处理
+ */
 @Service
 public class PasswordService {
 

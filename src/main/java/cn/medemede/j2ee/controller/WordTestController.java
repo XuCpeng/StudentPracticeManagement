@@ -15,6 +15,10 @@ import java.util.*;
 @RestController
 public class WordTestController {
 
+    /**
+     * 导出Word
+     * @throws IOException
+     */
     @RequestMapping(value = "/export")
     public void exportW() throws IOException {
 

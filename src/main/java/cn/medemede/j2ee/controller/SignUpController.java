@@ -14,6 +14,13 @@ public class SignUpController {
     @Resource
     private UserService userService;
 
+    /**
+     * 注册
+     * @param stuId
+     * @param pwd
+     * @param roleName
+     * @return
+     */
     @PostMapping("/signup")
     public Result doSignup(@RequestParam("stuId") String stuId,
                            @RequestParam("pwd") String pwd,

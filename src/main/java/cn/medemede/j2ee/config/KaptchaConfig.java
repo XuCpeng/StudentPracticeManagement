@@ -10,7 +10,10 @@ import java.util.Properties;
 @Component
 public class KaptchaConfig {
 
-
+    /**
+     * Kaptcha验证码的配置
+     * @return
+     */
     @Bean
     public DefaultKaptcha getDefaultKaptcha(){
 

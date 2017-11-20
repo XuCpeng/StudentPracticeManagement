@@ -4,6 +4,9 @@ import cn.medemede.j2ee.enums.ResultEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * 统一自定义异常
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class MyException extends RuntimeException {

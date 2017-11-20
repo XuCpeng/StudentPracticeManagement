@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * Shiro的认证Realm
+ */
 @Service
 public class MyShiroRealm extends AuthorizingRealm {
 
