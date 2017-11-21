@@ -10,7 +10,7 @@ public enum ResultEnum {
     STUDENT_LOGIN(200,"登陆成功，学生用户"),
     ADMAIN_LOGIN(201,"登陆成功，管理员"),
     MORE_PWDERROR_LUCK(102,"输错密码次数过多，用户被锁定！"),
-    LOG_FILED(100,"登陆失败"),
+    LOG_FILED(100,"登陆失败，请检查用户名和密码"),
     CHECKCODE_ERROR(101,"验证码错误"),
     SAVEUSER_SUCCESS(400,"注册成功"),
     USER_HEAD(401,"用户已存在"),

@@ -146,6 +146,9 @@
                 window.location.href="stuinfo/"+$("#stuId").val();
             }else if(responseText.code===201){
                 window.location.href="admininfo";
+            }else if(responseText.code===101){
+                alert(responseText.msg);
+                RefreshCode();
             }else {
                 alert(responseText.msg);
             }
