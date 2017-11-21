@@ -1,9 +1,6 @@
 package cn.medemede.j2ee.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +26,7 @@ public class AcProve {
     private Date proveDate;  //时间
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "stuId")  //设置外建
     private Set<AcBean> acList=new HashSet<>();  //活动列表
 

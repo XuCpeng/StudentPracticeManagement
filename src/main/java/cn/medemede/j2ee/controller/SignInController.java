@@ -30,8 +30,7 @@ import java.util.Date;
 @RestController
 public class SignInController {
 
-    private final
-    DefaultKaptcha defaultKaptcha;
+    private final DefaultKaptcha defaultKaptcha;
 
     @Autowired
     public SignInController(DefaultKaptcha defaultKaptcha) {

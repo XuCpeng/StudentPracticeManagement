@@ -1,10 +1,9 @@
 package cn.medemede.j2ee.controller;
 
+import cn.medemede.j2ee.model.AcBean;
 import cn.medemede.j2ee.model.AcProve;
 import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.repository.AcProveRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,22 +13,6 @@ public class StuInfoController {
 
     @Resource
     private AcProveRepository acProveRepository;
-
-    /**
-     * 获取该学生的所用个人信息
-     * @param stuId
-     * @return
-     */
-    @GetMapping("/stuinfo2/{stuId}")
-    public String getStuInfo(@PathVariable("stuId") String stuId, Model model){
-        Result result=new Result();
-        AcProve acProve=acProveRepository.findOne(stuId);
-
-        System.out.println(acProve.getStuName());
-        model.addAttribute("acProve",acProve);
-
-        return "stu-info";
-    }
 
     /**
      * 更新个人信息，不包括活动
@@ -46,10 +29,30 @@ public class StuInfoController {
      * 添加活动
      * @return
      */
-    @PutMapping("/stuinfo/ac")
-    public Result addStuAc(){
+    @PostMapping("/stuinfo")
+    public Result addStuAc(@RequestParam(required = false) String acName,
+                           @RequestParam(required = false) String acTime,
+                           @RequestParam(required = false) Float acHour,
+                           @RequestParam(required = false) String acRole,
+                           @RequestParam(required = false) String acUnit,
+                           @RequestParam(required = false) String witne,
+                           @RequestParam(required = false) String stuId){
         Result result=new Result();
-
+        AcBean acBean=new AcBean();
+        System.out.println(stuId);
+        AcProve acProve=acProveRepository.findOne(stuId);
+        int index=1;
+        if(acProve.getAcList()!=null)
+            index=acProve.getAcList().size()+1;
+        acBean.setAcId(index);
+        acBean.setAcName(acName);
+        acBean.setAcTime(acTime);
+        acBean.setAcHour(acHour);
+        acBean.setAcRole(acRole);
+        acBean.setAcUnit(acUnit);
+        acBean.setWitne(witne);
+        acProve.getAcList().add(acBean);
+        acProveRepository.save(acProve);
         return result;
     }
 

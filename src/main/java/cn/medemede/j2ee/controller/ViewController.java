@@ -33,9 +33,8 @@ public class ViewController {
     @Resource
     private AcProveRepository acProveRepository;
     @GetMapping("/stuinfo/{stuId}")
-    public String stuinfo(@PathVariable("stuId") String stuId, Model model){
+    public String stuInfo(@PathVariable("stuId") String stuId, Model model){
         AcProve acProve=acProveRepository.findOne(stuId);
-        System.out.println(acProve.getStuName());
         model.addAttribute("acProve",acProve);
 
         return "stu-info";

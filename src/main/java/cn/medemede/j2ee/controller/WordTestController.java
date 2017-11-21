@@ -34,7 +34,7 @@ public class WordTestController {
 
         ac1.setAcId(1);
         ac1.setAcName("活动1");
-        ac1.setAcTime(new Date());
+        ac1.setAcTime("2017-11-21");
         ac1.setAcHour((float) 9);
         ac1.setAcRole("小组长");
         ac1.setAcUnit("学生会");
@@ -43,7 +43,7 @@ public class WordTestController {
 
         ac2.setAcId(2);
         ac2.setAcName("活动2");
-        ac2.setAcTime(new Date());
+        ac2.setAcTime("2017-11-21");
         ac2.setAcHour((float) 9);
         ac2.setAcRole("小组长");
         ac2.setAcUnit("学生会");
