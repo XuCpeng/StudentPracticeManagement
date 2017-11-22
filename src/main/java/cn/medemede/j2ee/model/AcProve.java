@@ -15,7 +15,7 @@ public class AcProve {
 
     private String stuName; //学生姓名
     private String sex;  //性别
-    private Date birth;  //出生日期
+    private String birth;  //出生日期
     private String level; //年级
     private String klass;  //班级
     private String startY; //入学年份

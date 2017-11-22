@@ -52,7 +52,7 @@ public class WordTestController {
 
         acProve.setStuName("徐传鹏");
         acProve.setSex("男");
-        acProve.setBirth(new Date());
+        acProve.setBirth("1997-04-16");
         acProve.setLevel("2015");
         acProve.setKlass("二");
         acProve.setStuId("20153555");

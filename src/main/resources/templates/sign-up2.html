@@ -167,7 +167,7 @@
     //  提交后
     function showResponse(responseText, statusText)  {
 
-        if(statusText==="success"&&responseText.code===400){
+        if(statusText==="success"&&responseText.code===206){
             alert(responseText.msg);
             window.location.href="signin";
         }else {
