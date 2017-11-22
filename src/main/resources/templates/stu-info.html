@@ -76,9 +76,9 @@
                 <td th:text="${ac.acUnit}"></td>
                 <td th:text="${ac.witne}"></td>
                 <td>
-                    <a th:id="${ac.acId}" href="#updateAcWindow" class="btn btn-info ac-update">修改</a>
+                    <a th:name="${ac.acId}" href="#updateAcWindow" class="btn btn-info ac-update">修改</a>
                     &nbsp;&nbsp;
-                    <button type="button" class="btn btn-warning">删除</button>
+                    <a th:name="${ac.acId}" class="btn btn-warning ac-delete">删除</a>
                 </td>
             </tr>
 
@@ -292,11 +292,15 @@
     });
 
     $(document).ready(function () {
+
         /*为修改活动的隐藏项赋值*/
         $(".ac-update").click(function () {
-            $("#acIdHidden").val($(this).attr("id"));
+            $("#acIdHidden").val($(this).attr("name"));
         });
 
+        $(".ac-delete").click(function () {
+            alert($(this).attr("name"));
+        })
     });
 
     //  提交后
