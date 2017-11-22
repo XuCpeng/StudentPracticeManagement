@@ -300,16 +300,16 @@
 
         /*删除活动*/
         $(".ac-delete").click(function () {
-            var stuId=[[${acProve.stuId}]];
-            var acId=$(this).attr("name");
+            var stuId = [[${acProve.stuId}]];
+            var acId = $(this).attr("name");
             $.ajax({
-                url:"/j2ee/stuinfo/ac",
-                type:"post",
+                url: "/j2ee/stuinfo/ac",
+                type: "post",
                 dataType: "json",
-                data:{
-                    _method:"delete",    //将POST请求转换为DELETE请求
-                    stuId:stuId,         //传送的json值
-                    acId:acId
+                data: {
+                    _method: "delete",    //将POST请求转换为DELETE请求
+                    stuId: stuId,         //传送的json值
+                    acId: acId
                 },
                 success: function (data) {
                     alert(data.msg);
@@ -317,7 +317,7 @@
                 }
             });
         });
-
+    });
     //  提交后
     function showResponse1(responseText, statusText) {
         parent.$.fancybox.close();
