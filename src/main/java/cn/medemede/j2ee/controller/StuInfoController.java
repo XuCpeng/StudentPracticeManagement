@@ -8,6 +8,7 @@ import cn.medemede.j2ee.repository.AcProveRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 @RestController
 public class StuInfoController {
@@ -120,9 +121,22 @@ public class StuInfoController {
      * @param acId
      * @return
      */
-    @DeleteMapping("/stuinfo/ac/{acId}")
-    public Result deleteStuAc(@PathVariable("acId") String acId){
+    @DeleteMapping("/stuinfo/ac")
+    public Result deleteStuAc(@RequestParam String stuId,
+                              @RequestParam Integer acId){
         Result result=new Result();
+        AcProve acProve=acProveRepository.findOne(stuId);
+        if (acProve.getAcList()!=null){
+            for(AcBean acBean:acProve.getAcList()){
+                if (Objects.equals(acBean.getAcId(), acId)){
+                    acProve.getAcList().remove(acBean);
+                }
+            }
+            acProveRepository.save(acProve);
+            result.setResultEnum(ResultEnum.DELETE_AC_SUCCESS);
+        }else {
+            result.setResultEnum(ResultEnum.DELETE_AC_FAILD);
+        }
 
         return result;
     }

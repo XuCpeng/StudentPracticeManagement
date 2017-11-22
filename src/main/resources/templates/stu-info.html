@@ -249,7 +249,7 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
 
     $(document).ready(function () {
         /*弹出框js*/
@@ -298,8 +298,25 @@
             $("#acIdHidden").val($(this).attr("name"));
         });
 
+        /*删除活动*/
         $(".ac-delete").click(function () {
-            alert($(this).attr("name"));
+            var stuId=[[${acProve.stuId}]];
+            var acId=$(this).attr("name");
+            alert(stuId);
+            $.ajax({
+                url:"/j2ee/stuinfo/ac",
+                type:"post",
+                dataType: "json",
+                data:{
+                    _method:"delete",    //将POST请求转换为DELETE请求
+                    stuId:stuId,         //传送的json值
+                    acId:acId
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    window.location.reload();
+                }
+            });
         })
     });
 

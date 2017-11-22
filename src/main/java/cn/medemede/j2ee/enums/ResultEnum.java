@@ -19,7 +19,9 @@ public enum ResultEnum {
     UPDATE_STU_FAILD(210,"修改个人信息失败"),
     ADD_AC_FAILD(211,"添加失败"),
     UPDATE_AC_FAILD(212,"活动修改失败"),
-    UPDATE_AC_SUCCESS(213,"活动修改成功")
+    UPDATE_AC_SUCCESS(213,"活动修改成功"),
+    DELETE_AC_SUCCESS(214,"活动删除成功"),
+    DELETE_AC_FAILD(215,"活动删除失败")
     ;
 
     private Integer code;
