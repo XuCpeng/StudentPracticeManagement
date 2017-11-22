@@ -5,9 +5,16 @@ import cn.medemede.j2ee.model.AcBean;
 import cn.medemede.j2ee.model.AcProve;
 import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.repository.AcProveRepository;
+import cn.medemede.j2ee.service.AcWordService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 @RestController
@@ -15,6 +22,9 @@ public class StuInfoController {
 
     @Resource
     private AcProveRepository acProveRepository;
+
+    @Resource
+    AcWordService acWordService;
 
     /**
      * 更新个人信息，不包括活动
@@ -141,4 +151,31 @@ public class StuInfoController {
         return result;
     }
 
+    @GetMapping("/stuinfo/ac/{stuId}")
+    public Result exportAc(@PathVariable("stuId") String stuId){
+
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+
+        Result result=new Result();
+        AcProve acProve=acProveRepository.findOne(stuId);
+
+        //设置当前时间
+        acProve.setProveDate(new Date());
+        Calendar cal = Calendar.getInstance();
+        acProve.setEndY(String.valueOf(cal.get(Calendar.YEAR)));
+        acProve.setEndM(String.valueOf(cal.get(Calendar.MONTH)+1));
+
+        try {
+            if(acWordService.exportWord(acProve,response)){
+                result.setResultEnum(ResultEnum.EXPORT_AC_SUCCESS);
+            }else {
+                result.setResultEnum(ResultEnum.EXPORT_AC_FAILD);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            result.setResultEnum(ResultEnum.EXPORT_AC_FAILD);
+        }
+
+        return result;
+    }
 }

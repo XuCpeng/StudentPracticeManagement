@@ -126,7 +126,7 @@
 								<w:sz w:val="30"/>
 								<w:szCs w:val="30"/>
 							</w:rPr>
-							<w:t>${acProve.birth?string("yyyy年MM月dd日")!}</w:t>
+							<w:t>${acProve.birth!}</w:t>
 						</w:r>
 						<w:r w:rsidR="002C4E41" w:rsidRPr="00045D49">
 							<w:rPr>
@@ -693,7 +693,7 @@
 											<w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
 											<w:szCs w:val="21"/>
 										</w:rPr>
-										<w:t>${ac.acTime?string("yyyy.MM.dd")!}</w:t>
+										<w:t>${ac.acTime!}</w:t>
 									</w:r>
 								</w:p>
 							</w:tc>

@@ -21,7 +21,9 @@ public enum ResultEnum {
     UPDATE_AC_FAILD(212,"活动修改失败"),
     UPDATE_AC_SUCCESS(213,"活动修改成功"),
     DELETE_AC_SUCCESS(214,"活动删除成功"),
-    DELETE_AC_FAILD(215,"活动删除失败")
+    DELETE_AC_FAILD(215,"活动删除失败"),
+    EXPORT_AC_SUCCESS(216,"活动证明导出成功"),
+    EXPORT_AC_FAILD(217,"活动证明导出失败"),
     ;
 
     private Integer code;
