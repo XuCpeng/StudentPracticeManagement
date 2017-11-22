@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -46,8 +47,10 @@ public class StuInfoController {
             acProve.setStuName(stuName);
         if(sex!=null)
             acProve.setSex(sex);
-        if(birth!=null)
-            acProve.setBirth(birth);
+        if(birth!=null){
+            String format=birth.split("-")[0]+"年"+birth.split("-")[1]+"月"+birth.split("-")[2]+"日";
+            acProve.setBirth(format);
+        }
         if(level!=null)
             acProve.setLevel(level);
         if(klass!=null)

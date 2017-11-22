@@ -278,14 +278,14 @@
         $('#add_ac_form').ajaxForm(options1);
 
         var options2 = {
-            success:showResponse2,  // 提交后
-            dataType:'json' // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+            success:showResponse2,
+            dataType:'json'
         };
         $('#update_stu_form').ajaxForm(options2);
 
         var options3 = {
-            success:showResponse3,  // 提交后
-            dataType:'json' // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+            success:showResponse3,
+            dataType:'json'
         };
         $('#update_ac_form').ajaxForm(options3);
 
@@ -318,6 +318,7 @@
             });
         });
     });
+
     //  提交后
     function showResponse1(responseText, statusText) {
         parent.$.fancybox.close();
@@ -352,6 +353,7 @@
         }
         window.location.reload();
     }
+
 </script>
 </body>
 </html>
