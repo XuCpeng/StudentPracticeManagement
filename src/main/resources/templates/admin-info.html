@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -14,9 +16,69 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <link href="https://cdn.bootcss.com/fancybox/3.2.1/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.2.1/jquery.fancybox.min.js"></script>
     <title>管理员</title>
 </head>
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            </button>
+            <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
+        </div>
+        <div class="navbar-right">
+            <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+            <p class="navbar-text" th:text="'【管理员】 '+${acProve.getStuName()}"></p>
+            <button type="button" class="btn btn-default navbar-btn " onclick="check()">注销</button>
+        </div>
+    </div>
+</nav>
+<div class="page-header" style="width: 400px;text-align: center;margin: 70px auto">
+    <h1>查看</h1>
+</div>
+
+<div>
+    <div class="panel panel-default" style="width: 1200px;margin: 20px auto auto auto">
+        <!-- Default panel contents -->
+        <div class="panel-heading">详细信息</div>
+        <div class="panel-body">
+            <ul>
+                <li></li>
+            </ul>
+            <a id="showUpdatePwd" href="#updateStu" class="btn btn-info" style="float: right">修改密码</a>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-striped table-hover" style="text-align: center">
+            <tr>
+                <td><strong>学号</strong></td><td><strong>姓名</strong></td> <td><strong>班级</strong></td>
+                <td><strong>参与活动数量</strong></td><td>操作</td>
+            </tr>
+
+
+            <!--/*@thymesVar id="proveList" type="java.util.List<cn.medemede.j2ee.model.AcProve>"*/-->
+            <tr th:each="stu: ${proveList}">
+                <td th:text="${stu.getStuId()}"></td>
+                <td th:text="${stu.getStuName()}"></td>
+                <td th:text="${stu.getLevel()}+'级'+${stu.getKlass()}"></td>
+                <td th:text="${stu.getAcList().size()}"></td>
+                <td>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="8">
+                    <a id="showAddAcWindow" href="#addAcWindow" class="btn btn-info">添加活动</a>
+                    <a class="btn btn-info" href="/j2ee/stuinfo/stuList">导出Word</a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
 
 </body>
 </html>

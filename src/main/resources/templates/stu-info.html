@@ -27,7 +27,7 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             </button>
-            <a class="navbar-brand" href="/"><strong>学生信息管理系统</strong></a>
+            <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
         </div>
         <div class="navbar-right">
             <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
@@ -37,7 +37,7 @@
     </div>
 </nav>
 <div class="page-header" style="width: 400px;text-align: center;margin: 70px auto">
-    <h1>查看</h1>
+    <h1>个人信息</h1>
 </div>
 
 <div>
@@ -67,7 +67,7 @@
                 <td><strong>证明人</strong></td><td>操作</td>
             </tr>
             <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
-            <tr th:each="ac,acStat  : ${acProve.getAcList()}">
+            <tr th:each="ac,acStat : ${acProve.getAcList()}">
                 <td th:text="${ac.acId}"></td>
                 <td th:text="${ac.acName}"></td>
                 <td th:text="${ac.acTime}"></td>
@@ -85,7 +85,7 @@
             <tr>
                 <td colspan="8">
                     <a id="showAddAcWindow" href="#addAcWindow" class="btn btn-info">添加活动</a>
-                    <a class="btn btn-info" href="/j2ee/stuinfo/ac/" th:href="'/j2ee/stuinfo/ac/'+${acProve.getStuId()}">导出Word</a>
+                    <a class="btn btn-info" th:href="'/j2ee/stuinfo/ac/'+${acProve.getStuId()}">导出Word</a>
                 </td>
             </tr>
 
