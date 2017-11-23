@@ -62,7 +62,7 @@
             <tr th:each="stu: ${proveList}">
                 <td th:text="${stu.getStuId()}"></td>
                 <td th:text="${stu.getStuName()}"></td>
-                <td th:text="${stu.getLevel()}+'级'+${stu.getKlass()}"></td>
+                <td th:text="${stu.getLevel()}+${stu.getKlass()}"></td>
                 <td th:text="${stu.getAcList().size()}"></td>
                 <td>
 
