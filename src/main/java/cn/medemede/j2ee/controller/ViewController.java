@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 视图获取控制器
@@ -36,12 +37,13 @@ public class ViewController {
     public String stuInfo(@PathVariable("stuId") String stuId, Model model){
         AcProve acProve=acProveRepository.findOne(stuId);
         model.addAttribute("acProve",acProve);
-
         return "stu-info";
     }
 
     @GetMapping("/admininfo")
-    public String admininfo(){
+    public String admininfo(Model model){
+        List<AcProve> proveList=acProveRepository.findAll();
+        model.addAttribute("proveList",proveList);
         return "admin-info";
     }
 
