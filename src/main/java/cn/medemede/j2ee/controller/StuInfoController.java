@@ -3,8 +3,10 @@ package cn.medemede.j2ee.controller;
 import cn.medemede.j2ee.enums.ResultEnum;
 import cn.medemede.j2ee.model.AcBean;
 import cn.medemede.j2ee.model.AcProve;
+import cn.medemede.j2ee.model.JUserRole2;
 import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.repository.AcProveRepository;
+import cn.medemede.j2ee.repository.JUserRole2Repository;
 import cn.medemede.j2ee.service.AcWordService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,9 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 public class StuInfoController {
@@ -25,8 +25,10 @@ public class StuInfoController {
     private AcProveRepository acProveRepository;
 
     @Resource
-    AcWordService acWordService;
+    private AcWordService acWordService;
 
+    @Resource
+    private JUserRole2Repository jUserRole2Repository;
     /**
      * 更新个人信息，不包括活动
      * @return
@@ -181,4 +183,23 @@ public class StuInfoController {
 
         return result;
     }
+
+    @GetMapping("/stuinfo/stuList")
+    public Result exportAcList(){
+        Result result=new Result();
+        List<JUserRole2> stuList=jUserRole2Repository.findByRoleName("stu");
+        List<AcProve> proveList=new ArrayList<>();
+        for(JUserRole2 jUserRole2:stuList){
+            AcProve acProve=acProveRepository.findOne(jUserRole2.getStuId());
+            //设置当前时间
+            acProve.setProveDate(new Date());
+            Calendar cal = Calendar.getInstance();
+            acProve.setEndY(String.valueOf(cal.get(Calendar.YEAR)));
+            acProve.setEndM(String.valueOf(cal.get(Calendar.MONTH)+1));
+            proveList.add(acProve);
+        }
+
+        return result;
+    }
+
 }

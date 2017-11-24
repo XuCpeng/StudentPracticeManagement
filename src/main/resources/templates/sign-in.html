@@ -145,7 +145,7 @@
             if(responseText.code===200){
                 window.location.href="stuinfo/"+$("#stuId").val();
             }else if(responseText.code===201){
-                window.location.href="admininfo+"+$("#stuId").val();
+                window.location.href="admininfo/"+$("#stuId").val();
             }else if(responseText.code===205){
                 alert(responseText.msg);
                 RefreshCode();
