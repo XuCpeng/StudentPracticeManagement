@@ -192,15 +192,25 @@ public class StuInfoController {
         List<AcProve> proveList=new ArrayList<>();
         for(JUserRole2 jUserRole2:stuList){
             AcProve acProve=acProveRepository.findOne(jUserRole2.getStuId());
-            //设置当前时间
-            acProve.setProveDate(new Date());
-            Calendar cal = Calendar.getInstance();
-            acProve.setEndY(String.valueOf(cal.get(Calendar.YEAR)));
-            acProve.setEndM(String.valueOf(cal.get(Calendar.MONTH)+1));
-            proveList.add(acProve);
+            if(acProve.getStuName()!=null) {
+                //设置当前时间
+                acProve.setProveDate(new Date());
+                Calendar cal = Calendar.getInstance();
+                acProve.setEndY(String.valueOf(cal.get(Calendar.YEAR)));
+                acProve.setEndM(String.valueOf(cal.get(Calendar.MONTH) + 1));
+                proveList.add(acProve);
+            }
         }
 
         return acWordService.exportAcList(proveList,response);
+    }
+
+    @DeleteMapping("/stuinfo/stuList")
+    public Result deleteStu(@RequestParam String stuId){
+        Result result=new Result();
+        acProveRepository.delete(stuId);
+        result.setResultEnum(ResultEnum.DELETE_STU_SUCCESS);
+        return result;
     }
 
 }

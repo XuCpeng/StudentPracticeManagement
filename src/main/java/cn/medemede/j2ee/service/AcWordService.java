@@ -23,7 +23,7 @@ public class AcWordService {
         Map<String, Object> data = new HashMap<>();
         data.put("acProve", acProve);
 
-        ExportWord2.exportWord(resourcePath, templatePath, "证明.doc", data, response);
+        ExportWord2.exportWord(resourcePath, templatePath, acProve+".doc", data, response);
 
         return true;
     }
@@ -48,9 +48,8 @@ public class AcWordService {
             }
         }
 
-        ZipUtil.downloadZip("./doctemp","学生活动证明.zip",fileName,response);
+        ZipUtil.downloadZip("./doctemp",".zip",fileName,response);
         result.setData("count:"+count+","+"error:"+error);
-
         return result;
     }
 }

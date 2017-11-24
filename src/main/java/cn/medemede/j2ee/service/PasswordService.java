@@ -21,7 +21,6 @@ public class PasswordService {
     }
 
 
-
     public String UpdatePass(String stuId, String password) {
 
         ByteSource credentialsSalt = ByteSource.Util.bytes(stuId);

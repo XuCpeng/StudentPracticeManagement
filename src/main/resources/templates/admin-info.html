@@ -65,20 +65,39 @@
                 <td th:text="${stu.getLevel()}+${stu.getKlass()}"></td>
                 <td th:text="${stu.getAcList().size()}"></td>
                 <td>
-
+                    <a th:name="${stu.getStuId()}" class="btn btn-warning stu-delete">删除</a>
                 </td>
             </tr>
 
             <tr>
                 <td colspan="8">
-                    <a id="showAddAcWindow" href="#addAcWindow" class="btn btn-info">添加活动</a>
-                    <a class="btn btn-info" href="/j2ee/stuinfo/stuList">导出Word</a>
+                    <a class="btn btn-info" href="/j2ee/stuinfo/stuList">打包导出</a>
                 </td>
             </tr>
 
         </table>
     </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        /*删除学生*/
+        $(".stu-delete").click(function () {
+            var stuId = $(this).attr("name");
+            $.ajax({
+                url: "/j2ee/stuinfo/stuList",
+                type: "post",
+                dataType: "json",
+                data: {
+                    _method: "delete",    //将POST请求转换为DELETE请求
+                    stuId: stuId         //传送的json值
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

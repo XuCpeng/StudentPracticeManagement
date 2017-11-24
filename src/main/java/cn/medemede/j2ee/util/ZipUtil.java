@@ -14,10 +14,8 @@ public class ZipUtil {
      * @param zipName 压缩为文件名 **.zip
      * @param createFilesPath 需要压缩的文件列表
      * @param response
-     * @return
-     * @throws IOException
      */
-    public static boolean downloadZip(String zipPath, String zipName, List<String> createFilesPath, HttpServletResponse response) {
+    public static void downloadZip(String zipPath, String zipName, List<String> createFilesPath, HttpServletResponse response) {
 
         //String tmpFileName = "report.zip";
         byte[] buffer = new byte[1024];
@@ -62,7 +60,6 @@ public class ZipUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
     }
 
 
