@@ -1,20 +1,24 @@
 package cn.medemede.j2ee.service;
 
 import cn.medemede.j2ee.model.AcProve;
+import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.util.ExportWord2;
+import cn.medemede.j2ee.util.ZipUtil;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class AcWordService {
+    private String resourcePath = "/demo/acProve.xml";
+    private String templatePath = "acProve.xml";
 
     public boolean exportWord(AcProve acProve, HttpServletResponse response) throws IOException {
-        String resourcePath = "/demo/acProve.xml";
-        String templatePath = "acProve.xml";
 
         Map<String, Object> data = new HashMap<>();
         data.put("acProve", acProve);
@@ -22,5 +26,31 @@ public class AcWordService {
         ExportWord2.exportWord(resourcePath, templatePath, "证明.doc", data, response);
 
         return true;
+    }
+
+    public Result exportAcList(List<AcProve> acProves, HttpServletResponse response) {
+        Result result=new Result();
+        int count=0;
+        int error=0;
+        List<String> fileName=new ArrayList<>();
+        for (AcProve acProve:acProves){
+            Map<String, Object> data = new HashMap<>();
+            data.put("acProve", acProve);
+            fileName.add(acProve.getStuId()+".doc");
+            try {
+                if(ExportWord2.creatDoc(data,resourcePath,templatePath,acProve.getStuId())){
+                    count++;
+                }else {
+                    error++;
+                }
+            } catch (IOException e) {
+                error++;
+            }
+        }
+
+        ZipUtil.downloadZip("./doctemp","学生活动证明.zip",fileName,response);
+        result.setData("count:"+count+","+"error:"+error);
+
+        return result;
     }
 }

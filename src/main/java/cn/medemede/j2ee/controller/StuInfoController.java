@@ -186,7 +186,8 @@ public class StuInfoController {
 
     @GetMapping("/stuinfo/stuList")
     public Result exportAcList(){
-        Result result=new Result();
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+
         List<JUserRole2> stuList=jUserRole2Repository.findByRoleName("stu");
         List<AcProve> proveList=new ArrayList<>();
         for(JUserRole2 jUserRole2:stuList){
@@ -199,7 +200,7 @@ public class StuInfoController {
             proveList.add(acProve);
         }
 
-        return result;
+        return acWordService.exportAcList(proveList,response);
     }
 
 }
