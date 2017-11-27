@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebInitParam;
 
 /**
  * Durid数据源的拦截器
+ * @author Saber
  */
 @WebFilter(filterName = "druidStatFilter", urlPatterns = "/*", initParams = {
         @WebInitParam(name = "exclusions", value = "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*")})

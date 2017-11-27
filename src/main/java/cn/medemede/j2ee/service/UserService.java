@@ -15,6 +15,7 @@ import java.util.Set;
 
 /**
  * 用户处理
+ * @author Saber
  */
 @Service
 public class UserService {
@@ -45,10 +46,11 @@ public class UserService {
 
     public Set<String> getPermsStringSet(String stuId){
         Set<String> permsStringSet=new HashSet<>();
-        for (String roleName:getRolesStringSet(stuId))
-            for(JRolePerm2 jRolePerm2:jRolePerm2Repository.findByRoleName(roleName)){
+        for (String roleName:getRolesStringSet(stuId)) {
+            for (JRolePerm2 jRolePerm2 : jRolePerm2Repository.findByRoleName(roleName)) {
                 permsStringSet.add(jRolePerm2.getPermName());
             }
+        }
         return permsStringSet;
     }
 

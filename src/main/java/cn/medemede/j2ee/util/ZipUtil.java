@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * @author Saber
+ */
 public class ZipUtil {
 
     /**
@@ -24,11 +27,13 @@ public class ZipUtil {
         String strZipPath=zipPath+"/"+zipName;
         try {
             File tmpZip=new File(zipPath);
-            if (!tmpZip.exists())
+            if (!tmpZip.exists()) {
                 tmpZip.mkdirs();
+            }
             File tmpZipFile = new File(strZipPath);
-            if (!tmpZipFile.exists())
+            if (!tmpZipFile.exists()) {
                 tmpZipFile.createNewFile();
+            }
             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(strZipPath));
             File[] file1 =new File[createFilesPath.size()] ;
 

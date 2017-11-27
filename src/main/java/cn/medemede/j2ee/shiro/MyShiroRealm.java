@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 
 /**
  * Shiro的认证Realm
+ * @author Saber
  */
 @Service
 public class MyShiroRealm extends AuthorizingRealm {

@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 
 /**
  * shiro的配置类
+ * @author Saber
  */
 @Configuration
 public class ShiroConfiguration {
@@ -36,8 +37,10 @@ public class ShiroConfiguration {
 
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/**", "anon"); //表示可以匿名访问
-        filterChainDefinitionMap.put("/*", "anon");//表示需要认证才可以访问  //authc
+        //表示可以匿名访问
+        filterChainDefinitionMap.put("/**", "anon");
+        //表示需要认证才可以访问  //authc
+        filterChainDefinitionMap.put("/*", "anon");
         filterChainDefinitionMap.put("/*.*", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -49,7 +52,8 @@ public class ShiroConfiguration {
     @Bean(name="securityManager")
     public SecurityManager securityManager(@Qualifier("myShiroRealm") MyShiroRealm myShiroRealm) {
         logger.info("--------------shiro已经加载----------------");
-        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());  //插入密码匹配管理器
+        //插入密码匹配管理器
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         DefaultWebSecurityManager manager=new DefaultWebSecurityManager();
         manager.setRealm(myShiroRealm);
 

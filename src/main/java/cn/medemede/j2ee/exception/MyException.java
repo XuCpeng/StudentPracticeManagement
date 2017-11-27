@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 统一自定义异常
+ * @author Saber
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

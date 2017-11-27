@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * @author Saber
+ */
 public interface AcProveRepository extends JpaRepository<AcProve, String> {
 
-    //方法名不能乱写！！！一定要按照这个规则写，idea会有自动提示
-    List<AcProve> findByStuId(String stuId);
 }

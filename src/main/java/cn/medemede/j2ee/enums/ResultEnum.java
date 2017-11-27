@@ -2,6 +2,7 @@ package cn.medemede.j2ee.enums;
 
 /**
  * 返回值枚举类
+ * @author Saber
  */
 public enum ResultEnum {
 

@@ -12,6 +12,9 @@ import java.net.URLEncoder;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @author Saber
+ */
 public class ExportWord2 {
 
     private static Configuration freemarkerConfig;
@@ -52,9 +55,15 @@ public class ExportWord2 {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (fin != null) fin.close();
-            if (out != null) out.close();
-            if (file != null) file.delete(); // 删除临时文件
+            if (fin != null) {
+                fin.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+            if (file != null) {
+                file.delete(); // 删除临时文件
+            }
         }
     }
 

@@ -3,6 +3,9 @@ package cn.medemede.j2ee.util;
 
 import cn.medemede.j2ee.model.Result;
 
+/**
+ * @author Saber
+ */
 public class ResultUtil {
 
     public static Result<Object> success(Object o) {

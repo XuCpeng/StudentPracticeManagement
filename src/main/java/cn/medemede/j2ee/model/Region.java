@@ -96,20 +96,39 @@ public class Region {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Region that = (Region) o;
 
-        if (regionId != that.regionId) return false;
-        if (Double.compare(that.parentId, parentId) != 0) return false;
-        if (Double.compare(that.regionLevel, regionLevel) != 0) return false;
-        if (Double.compare(that.regionOrder, regionOrder) != 0) return false;
-        if (regionCode != null ? !regionCode.equals(that.regionCode) : that.regionCode != null) return false;
-        if (regionName != null ? !regionName.equals(that.regionName) : that.regionName != null) return false;
-        if (regionNameEn != null ? !regionNameEn.equals(that.regionNameEn) : that.regionNameEn != null) return false;
-        if (regionShortnameEn != null ? !regionShortnameEn.equals(that.regionShortnameEn) : that.regionShortnameEn != null)
+        if (regionId != that.regionId) {
             return false;
+        }
+        if (Double.compare(that.parentId, parentId) != 0) {
+            return false;
+        }
+        if (Double.compare(that.regionLevel, regionLevel) != 0) {
+            return false;
+        }
+        if (Double.compare(that.regionOrder, regionOrder) != 0) {
+            return false;
+        }
+        if (regionCode != null ? !regionCode.equals(that.regionCode) : that.regionCode != null) {
+            return false;
+        }
+        if (regionName != null ? !regionName.equals(that.regionName) : that.regionName != null) {
+            return false;
+        }
+        if (regionNameEn != null ? !regionNameEn.equals(that.regionNameEn) : that.regionNameEn != null) {
+            return false;
+        }
+        if (regionShortnameEn != null ? !regionShortnameEn.equals(that.regionShortnameEn) : that.regionShortnameEn != null) {
+            return false;
+        }
 
         return true;
     }
