@@ -41,7 +41,8 @@ public class ExportWord2 {
                     .concat(String.valueOf(URLEncoder.encode(fileName, "UTF-8"))));
 
             out = response.getOutputStream();
-            byte[] buffer = new byte[512];  // 缓冲区
+            // 缓冲区
+            byte[] buffer = new byte[512];
             int bytesToRead = -1;
             // 通过循环将读入的Word文件的内容输出到浏览器中
             while ((bytesToRead = fin.read(buffer)) != -1) {

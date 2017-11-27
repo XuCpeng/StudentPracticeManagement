@@ -24,7 +24,9 @@ public enum ResultEnum {
     DELETE_AC_FAILD(215,"活动删除失败"),
     EXPORT_AC_SUCCESS(216,"活动证明导出成功"),
     EXPORT_AC_FAILD(217,"活动证明导出失败"),
-    DELETE_STU_SUCCESS(218,"删除成功")
+    DELETE_STU_SUCCESS(218,"删除成功"),
+    IMPORT_AC_SUCCESS(219,"活动导入成功"),
+    IMPORT_AC_FAILD(220,"活动导入失败")
     ;
 
     private Integer code;

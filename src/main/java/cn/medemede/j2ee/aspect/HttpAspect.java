@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Aop事务
+ * @author Saber
  */
 @Aspect
 @Component
@@ -53,12 +54,12 @@ public class HttpAspect {
         logger.info("-->事务执行后");
     }
 
-
     //获取服务端的响应数据
     @AfterReturning(returning = "o", pointcut = "log()")
     public void doAfterReturnint(Object o) {
-        if (o!=null)
-        logger.info("response={}", o.toString());
+        if (o!=null) {
+            logger.info("response={}", o.toString());
+        }
     }
 
 }
