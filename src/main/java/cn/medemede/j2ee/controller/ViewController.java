@@ -21,7 +21,12 @@ import java.util.List;
 @Controller
 public class ViewController {
 
-    @GetMapping("/")
+    @Resource
+    private AcProveRepository acProveRepository;
+    @Resource
+    private JUserRole2Repository jUserRole2Repository;
+
+    @GetMapping(value = {"/","/login"})
     public String index(){
         return "sign-in";
     }
@@ -36,8 +41,6 @@ public class ViewController {
         return "sign-up2";
     }
 
-    @Resource
-    private AcProveRepository acProveRepository;
     @GetMapping("/stuinfo/{stuId}")
     public String stuInfo(@PathVariable("stuId") String stuId, Model model){
         AcProve acProve=acProveRepository.findOne(stuId);
@@ -45,15 +48,16 @@ public class ViewController {
         return "stu-info";
     }
 
-    @Resource
-    private JUserRole2Repository jUserRole2Repository;
     @GetMapping("/admininfo/{adminId}")
     public String admininfo(@PathVariable("adminId") String adminId,Model model){
         AcProve acProve=acProveRepository.findOne(adminId);
         List<JUserRole2> stuList=jUserRole2Repository.findByRoleName("stu");
         List<AcProve> proveList=new ArrayList<>();
         for(JUserRole2 jUserRole2:stuList){
-            proveList.add(acProveRepository.findOne(jUserRole2.getStuId()));
+            AcProve acProve1=acProveRepository.findOne(jUserRole2.getStuId());
+            if (acProve1!=null&&acProve1.getStuName()!=null) {
+                proveList.add(acProve1);
+            }
         }
         model.addAttribute("acProve",acProve);
         model.addAttribute("proveList",proveList);

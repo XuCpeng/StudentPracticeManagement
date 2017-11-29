@@ -25,22 +25,21 @@ public class RegionController {
     public String getRegion(@RequestParam("parentId") int parentId,
                             @RequestParam(value = "citySelected",required = false) String citySelected ) {
 
-        String regionStr="";
+        StringBuilder regionStr= new StringBuilder();
         System.out.println("查询");
         if(citySelected!=null){
             List<Region> regions=regionRepository.findByRegionNameAndRegionId(citySelected,parentId);
             for (Region region : regions) {
-                regionStr += region.getRegionName()+",";
+                regionStr.append(region.getRegionName()).append(",");
             }
-            return regionStr;
+            return regionStr.toString();
         }else {
             List<Region> regions=regionRepository.findByParentId(parentId);
             for (Region region : regions) {
-                regionStr += region.getRegionName()+",";
+                regionStr.append(region.getRegionName()).append(",");
             }
         }
 
-        return regionStr;
-
+        return regionStr.toString();
     }
 }

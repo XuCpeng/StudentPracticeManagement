@@ -20,10 +20,7 @@ public class ZipUtil {
      */
     public static void downloadZip(String zipPath, String zipName, List<String> createFilesPath, HttpServletResponse response) {
 
-        //String tmpFileName = "report.zip";
         byte[] buffer = new byte[1024];
-        // String strZipPath = COM_REPORT_PATH+"/"+user.getOid()+"/"+report.getOid()+"/"+tmpFileName;
-
         String strZipPath=zipPath+"/"+zipName;
         try {
             File tmpZip=new File(zipPath);
@@ -46,8 +43,7 @@ public class ZipUtil {
             for (File aFile1 : file1) {
                 FileInputStream fis = new FileInputStream(aFile1);
                 out.putNextEntry(new ZipEntry(aFile1.getName()));
-                //设置压缩文件内的字符编码，不然会变成乱码
-                //out.setEncoding("UTF-8");
+                //设置压缩文件内的字符编码，不然会变成乱码 out.setEncoding("UTF-8");
                 int len;
                 // 读入需要下载的文件的内容，打包到zip文件
                 while ((len = fis.read(buffer)) > 0) {
@@ -93,7 +89,6 @@ public class ZipUtil {
             toClient.write(buffer);
             toClient.flush();
             toClient.close();
-
             //删除临时文件
             file.delete();
         }

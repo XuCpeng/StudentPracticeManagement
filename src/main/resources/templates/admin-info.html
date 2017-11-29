@@ -31,21 +31,22 @@
         <div class="navbar-right">
             <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
             <p class="navbar-text" th:text="'【管理员】 '+${acProve.getStuName()}"></p>
-            <button type="button" class="btn btn-default navbar-btn " onclick="check()">注销</button>
+            <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
         </div>
     </div>
 </nav>
 <div class="page-header" style="width: 400px;text-align: center;margin: 70px auto">
     <h1>查看</h1>
 </div>
-
 <div>
     <div class="panel panel-default" style="width: 1200px;margin: 20px auto auto auto">
         <!-- Default panel contents -->
         <div class="panel-heading">详细信息</div>
         <div class="panel-body">
             <ul>
-                <li></li>
+                <li>你可以修改你的管理员密码</li>
+                <li>你可以打包导出所有的学生证明文档</li>
+                <li>你可以删除无效的学生证明</li>
             </ul>
             <a id="showUpdatePwd" href="#updateStu" class="btn btn-info" style="float: right">修改密码</a>
         </div>
@@ -98,6 +99,7 @@
             });
         });
     });
+
 </script>
 </body>
 </html>

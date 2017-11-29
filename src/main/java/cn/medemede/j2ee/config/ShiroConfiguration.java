@@ -6,6 +6,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * shiro的配置类
@@ -29,23 +33,22 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager manager) {
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
-
         //配置登录的url和登录成功的url
-        bean.setLoginUrl("/");
-        bean.setSuccessUrl("/home");
+        bean.setLoginUrl("/login");
         bean.setUnauthorizedUrl("/unauthorized");
-
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
-        //表示可以匿名访问
-        filterChainDefinitionMap.put("/**", "anon");
-        //表示需要认证才可以访问  //authc
-        filterChainDefinitionMap.put("/*", "anon");
-        filterChainDefinitionMap.put("/*.*", "anon");
+        //注销
         filterChainDefinitionMap.put("/logout", "logout");
-        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return bean;
+        //表示需要认证才可以访问  //authc
+        filterChainDefinitionMap.put("/stuinfo", "authc");
+        filterChainDefinitionMap.put("/admininfo", "authc");
+        filterChainDefinitionMap.put("/stuinfo/*", "authc");
+        filterChainDefinitionMap.put("/admininfo/*", "authc");
 
+        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+        return bean;
     }
 
     //配置核心安全事务管理器
@@ -66,10 +69,12 @@ public class ShiroConfiguration {
     @Bean(name = "hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-
-        hashedCredentialsMatcher.setHashAlgorithmName("MD5");// 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(1024);  // 散列的次数，比如散列两次，相当于md5(md5(""));
-        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(false);  //启用base64编码，true时为Hash编码
+        // 散列算法:这里使用MD5算法;
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        // 散列的次数（加密次数）
+        hashedCredentialsMatcher.setHashIterations(1024);
+        //启用base64编码，true时为Hash编码
+        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(false);
         return hashedCredentialsMatcher;
     }
 
@@ -91,5 +96,6 @@ public class ShiroConfiguration {
         advisor.setSecurityManager(manager);
         return advisor;
     }
+
 
 }

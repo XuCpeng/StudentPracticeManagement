@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface JUserRole2Repository extends JpaRepository<JUserRole2,Integer> {
 
-    List<JUserRole2> findByStuId(String StuId);
+    List<JUserRole2> findByStuId(String stuId);
 
     List<JUserRole2> findByRoleName(String roleName);
 }
