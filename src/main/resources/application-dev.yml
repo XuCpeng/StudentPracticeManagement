@@ -1,9 +1,0 @@
-server:
-  port: 8080
-  context-path: /j2ee
-  tomcat:
-    accesslog:
-      enabled: true
-spring:
-  thymeleaf:
-    cache: false

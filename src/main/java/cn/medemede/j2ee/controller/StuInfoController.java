@@ -217,7 +217,7 @@ public class StuInfoController {
         List<AcProve> proveList=new ArrayList<>();
         for(JUserRole2 jUserRole2:stuList){
             AcProve acProve=acProveRepository.findOne(jUserRole2.getStuId());
-            if(acProve.getStuName()!=null) {
+            if(acProve!=null&&acProve.getStuName()!=null) {
                 //设置当前时间
                 acProve.setProveDate(new Date());
                 Calendar cal = Calendar.getInstance();
@@ -226,7 +226,6 @@ public class StuInfoController {
                 proveList.add(acProve);
             }
         }
-
         return acWordService.exportAcList(proveList,response);
     }
 

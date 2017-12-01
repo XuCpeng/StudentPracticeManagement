@@ -26,7 +26,7 @@ public class AcWordService {
         Map<String, Object> data = new HashMap<>();
         data.put("acProve", acProve);
 
-        ExportWord2.exportWord(resourcePath, templatePath, acProve+".doc", data, response);
+        ExportWord2.exportWord(resourcePath, templatePath, acProve.getStuId()+".doc", data, response);
 
         return true;
     }
@@ -51,7 +51,7 @@ public class AcWordService {
             }
         }
 
-        ZipUtil.downloadZip("./doctemp",".zip",fileName,response);
+        ZipUtil.downloadZip("./doctemp","stu.zip",fileName,response);
         result.setData("count:"+count+","+"error:"+error);
         return result;
     }

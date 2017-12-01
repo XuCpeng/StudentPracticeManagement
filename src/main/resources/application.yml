@@ -1,6 +1,10 @@
+server:
+  port: 8080
+  context-path: /j2ee
+  tomcat:
+    accesslog:
+      enabled: true
 spring:
-  profiles:
-    active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/j2ee?characterEncoding=utf8  #&useSSL=true #118.89.168.177
@@ -12,9 +16,10 @@ spring:
           db-type: mysql
           log-slow-sql: true
           slow-sql-millis: 2000
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-  thymeleaf:
-    mode: LEGACYHTML5
