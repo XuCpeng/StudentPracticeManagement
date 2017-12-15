@@ -106,17 +106,10 @@
 
         $('#sign_in_form').ajaxForm(options);
 
-        //$('#myForm').submit(function() {
-        //    $(this).ajaxSubmit(options);
-        //    return false; //来阻止浏览器提交.
-        //});
     });
 
     // 提交前
     function showRequest() {
-
-        // formdata是数组对象,在这里，我们使用$.param()方法把他转化为字符串.
-        //var queryString = $.param(formData); //组装数据，插件会自动提交数据
 
         var username = $("#stuId").val();
         var password = $("#pwd").val();
@@ -142,16 +135,24 @@
     //  提交后
     function showResponse(responseText, statusText)  {
         if(statusText==="success"){
-            if(responseText.code===200){
-                window.location.href="stuinfo/"+$("#stuId").val();
-            }else if(responseText.code===201){
-                window.location.href="admininfo/"+$("#stuId").val();
-            }else if(responseText.code===205){
-                alert(responseText.msg);
-                RefreshCode();
-            }else {
-                alert(responseText.msg);
+            switch (responseText.code){
+                case 200:
+                    window.location.href="stu/"+$("#stuId").val();
+                    break;
+                case 201:
+                    window.location.href="admin/"+$("#stuId").val();
+                    break;
+                case 224:
+                    window.location.href="monitor/"+$("#stuId").val();
+                    break;
+                case 205:
+                    alert(responseText.msg);
+                    RefreshCode();
+                    break;
+                default:
+                    alert(responseText.msg);
             }
+
         }else {
             alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
         }

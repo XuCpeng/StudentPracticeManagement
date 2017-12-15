@@ -26,7 +26,6 @@ public class RegionController {
                             @RequestParam(value = "citySelected",required = false) String citySelected ) {
 
         StringBuilder regionStr= new StringBuilder();
-        System.out.println("查询");
         if(citySelected!=null){
             List<Region> regions=regionRepository.findByRegionNameAndRegionId(citySelected,parentId);
             for (Region region : regions) {

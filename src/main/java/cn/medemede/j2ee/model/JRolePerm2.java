@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @lombok.Data
-@Table(name = "j_role_perm2", schema = "j2ee")
+@Table(name = "j_role_perm", schema = "j2ee")
 public class JRolePerm2 {
 
     @Id

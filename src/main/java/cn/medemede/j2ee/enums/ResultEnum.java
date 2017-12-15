@@ -27,7 +27,11 @@ public enum ResultEnum {
     EXPORT_AC_FAILD(217,"活动证明导出失败"),
     DELETE_STU_SUCCESS(218,"删除成功"),
     IMPORT_AC_SUCCESS(219,"活动导入成功"),
-    IMPORT_AC_FAILD(220,"活动导入失败")
+    IMPORT_AC_FAILD(220,"活动导入失败"),
+    ADD_ACTEM_SUCCESS(221,"添加活动模板成功"),
+    LOCK_ACTEM_SUCCESS(222,"活动已关闭，不允许录入"),
+    UNLOCK_ACTEM_SUCCESS(223,"活动已开启，允许录入"),
+    MONITOR_LOGIN(224,"登陆成功，班长"),
     ;
 
     private Integer code;

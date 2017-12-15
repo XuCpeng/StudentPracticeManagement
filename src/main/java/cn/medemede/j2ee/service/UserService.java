@@ -2,10 +2,7 @@ package cn.medemede.j2ee.service;
 
 import cn.medemede.j2ee.enums.ResultEnum;
 import cn.medemede.j2ee.model.*;
-import cn.medemede.j2ee.repository.AcProveRepository;
-import cn.medemede.j2ee.repository.JRolePerm2Repository;
-import cn.medemede.j2ee.repository.JUserRole2Repository;
-import cn.medemede.j2ee.repository.UserRepository;
+import cn.medemede.j2ee.repository.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,6 +33,9 @@ public class UserService {
     @Resource
     private AcProveRepository acProveRepository;
 
+    @Resource
+    private StuRepository stuRepository;
+
     public Set<String> getRolesStringSet(String stuId){
         Set<String> roleStringSet=new HashSet<>();
         for (JUserRole2 jUserRole2:jUserRole2Repository.findByStuId(stuId)){
@@ -65,6 +65,9 @@ public class UserService {
             userRepository.save(user);
             jUserRole2Repository.save(jUserRole2);
             acProveRepository.save(acProve);
+            Stu stu=new Stu();
+            stu.setByAcProve(acProve);
+            stuRepository.save(stu);
             result.setResultEnum(ResultEnum.SAVEUSER_SUCCESS);
         }
 

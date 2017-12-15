@@ -37,6 +37,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             info.setRoles(userService.getRolesStringSet(stuId));
             info.addStringPermissions(userService.getPermsStringSet(stuId));
+            System.out.println(userService.getPermsStringSet(stuId).toString());
             return info;
         } else {
             return null;

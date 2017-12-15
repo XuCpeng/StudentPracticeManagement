@@ -30,7 +30,7 @@
         </div>
         <div class="navbar-right">
             <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
-            <p class="navbar-text" th:text="'【管理员】 '+${acProve.getStuName()}"></p>
+            <p class="navbar-text" th:text="'【管理员】 '+(${acProve.getStuName()}?:'')"></p>
             <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
         </div>
     </div>
@@ -38,7 +38,20 @@
 <div class="page-header" style="width: 400px;text-align: center;margin: 70px auto">
     <h1>查看</h1>
 </div>
-<div>
+
+<nav>
+<ul class="nav nav-tabs" style="width: 1200px;margin: 0 auto">
+    <li role="presentation" class="active">
+        <a href="#stuView" data-toggle="tab">学生列表</a>
+    </li>
+    <li role="presentation">
+        <a href="#acView" data-toggle="tab">活动列表</a>
+    </li>
+</ul>
+</nav>
+
+<div class="tab-content">
+<div class="tab-pane fade in active" id="stuView">
     <div class="panel panel-default" style="width: 1200px;margin: 20px auto auto auto">
         <!-- Default panel contents -->
         <div class="panel-heading">详细信息</div>
@@ -58,7 +71,6 @@
                 <td><strong>参与活动数量</strong></td><td>操作</td>
             </tr>
 
-
             <!--/*@thymesVar id="proveList" type="java.util.List<cn.medemede.j2ee.model.AcProve>"*/-->
             <tr th:each="stu: ${proveList}">
                 <td th:text="${stu.getStuId()}"></td>
@@ -69,18 +81,104 @@
                     <a th:name="${stu.getStuId()}" class="btn btn-warning stu-delete">删除</a>
                 </td>
             </tr>
-
             <tr>
                 <td colspan="8">
                     <a class="btn btn-info" href="/j2ee/stuinfo/stuList">打包导出</a>
                 </td>
             </tr>
-
         </table>
     </div>
 </div>
+
+
+<div class="tab-pane fade" id="acView">
+    <div class="panel panel-default" style="width: 1200px;margin: 20px auto auto auto">
+        <!-- Default panel contents -->
+        <div class="panel-heading">详细信息</div>
+        <div class="panel-body">
+            <ul>
+                <li>你可以在这里管理所有活动</li>
+                <li>处于开启状态的活动可以被录入</li>
+            </ul>
+        </div>
+        <!-- Table -->
+        <table class="table table-striped table-hover" style="text-align: center">
+            <tr>
+                <td><strong>活动名</strong></td><td><strong>活动时间</strong></td> <td><strong>活动单位</strong></td>
+                <td><strong>状态</strong></td><td><strong>创建时间</strong></td><td><strong>过期时间</strong></td>
+                <td>操作</td>
+            </tr>
+            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.j2ee.model.Active>"*/-->
+            <tr th:each="ac: ${activeList}">
+                <td th:text="${ac.getAcName()}"></td>
+                <td th:text="${ac.getAcTime()}"></td>
+                <td th:text="${ac.getAcUnit()}"></td>
+                <td th:text="${ac.getStruts()}=='1'?'开启':'关闭'"></td>
+                <td th:text="${ac.getCreatDate()}"></td>
+                <td th:text="${ac.getClearDate()}"></td>
+                <td>
+                    <a class="btn btn-info ac-delete"  th:href="'/j2ee/acinfo/ac/'+${ac.getAcName()}">导出</a>
+                    <a th:name="${ac.getAcName()}" class="btn btn-info ac-unlock">开启</a>
+                    <a th:name="${ac.getAcName()}" class="btn btn-warning ac-lock">关闭</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7">
+                    <a id="showAddAcView" class="btn btn-info" href="#addAcView">添加活动模板</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<div class="container" id="addAcView" style="display: none">
+    <div class="row">
+        <div class="panel panel-default" style="width:560px;margin:0 auto auto auto;text-align:center">
+            <div class="panel-heading"><h4>修改个人信息</h4></div>
+            <div class="panel-body">
+                <br>
+                <form id="add_ac" action="/j2ee/acinfo/ac" method="post">
+                    <div class="input-group">
+                        <span class="input-group-addon">活动名：</span>
+                        <input name="acName" type="text" class="form-control">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">活动时间：</span>
+                        <input name="acTime" type="date" class="form-control">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">活动单位：</span>
+                        <input name="acUnit" type="text" class="form-control">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">过期时间：</span>
+                        <input name="days" type="text" class="form-control" placeholder="几天后过期">
+                    </div>
+                    <br>
+                    <div>
+                        <input class="btn btn-default" type="submit" value="添加">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
+
+        /*弹出框js*/
+        $("#showAddAcView").fancybox({
+            'autoDimensions': false,
+            'centerOnScroll': true,
+            'scrolling': false
+        });
+
         /*删除学生*/
         $(".stu-delete").click(function () {
             var stuId = $(this).attr("name");
@@ -98,8 +196,62 @@
                 }
             });
         });
+
+        /*关闭活动*/
+        $(".ac-lock").click(function () {
+            var acName = $(this).attr("name");
+            $.ajax({
+                url: "/j2ee/acinfo/lock",
+                type: "post",
+                dataType: "json",
+                data: {
+                    _method: "put",    //将POST请求转换为PUT请求
+                    acName: acName         //传送的json值
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    window.location.reload();
+                }
+            });
+        });
+
+        /*开启活动*/
+        $(".ac-unlock").click(function () {
+            var acName = $(this).attr("name");
+            $.ajax({
+                url: "/j2ee/acinfo/unlock",
+                type: "post",
+                dataType: "json",
+                data: {
+                    _method: "put",    //将POST请求转换为PUT请求
+                    acName: acName         //传送的json值
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    window.location.reload();
+                }
+            });
+        });
+
+        var options = {
+            success:showResponse1,  // 提交后
+            dataType:'json' // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+        };
+
+        $('#add_ac').ajaxForm(options);
+
     });
 
+    //  提交后
+    function showResponse1(responseText, statusText) {
+        parent.$.fancybox.close();
+        if(statusText==="success"){
+            alert(responseText.msg);
+        }else {
+            alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
+        }
+        window.location.reload();
+    }
 </script>
 </body>
 </html>

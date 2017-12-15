@@ -1,14 +1,13 @@
 package cn.medemede.j2ee.controller;
 
 import cn.medemede.j2ee.enums.ResultEnum;
-import cn.medemede.j2ee.model.AcBean;
-import cn.medemede.j2ee.model.AcProve;
-import cn.medemede.j2ee.model.JUserRole2;
-import cn.medemede.j2ee.model.Result;
+import cn.medemede.j2ee.model.*;
 import cn.medemede.j2ee.repository.AcProveRepository;
 import cn.medemede.j2ee.repository.JUserRole2Repository;
+import cn.medemede.j2ee.repository.StuRepository;
 import cn.medemede.j2ee.service.AcExcelService;
 import cn.medemede.j2ee.service.AcWordService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -37,6 +36,9 @@ public class StuInfoController {
 
     @Resource
     private AcExcelService acExcelService;
+
+    @Resource
+    private StuRepository stuRepository;
 
     /**
      * 更新个人信息，不包括活动
@@ -79,11 +81,14 @@ public class StuInfoController {
         if(school!=null) {
             acProve.setSchool(school);
         }
-        if(acProveRepository.save(acProve)!=null){
+        Stu stu=new Stu();
+        stu.setByAcProve(acProve);
+        if(acProveRepository.save(acProve)!=null&&stuRepository.save(stu)!=null){
             result.setResultEnum(ResultEnum.UPDATE_STU_SUCCESS);
         }else {
             result.setResultEnum(ResultEnum.UPDATE_STU_FAILD);
         }
+
         return result;
     }
 
@@ -178,6 +183,7 @@ public class StuInfoController {
      * @param stuId
      * @return
      */
+    //@RequiresPermissions("stuAc:export")
     @GetMapping("/stuinfo/ac/{stuId}")
     public Result exportAc(@PathVariable("stuId") String stuId){
 
@@ -209,6 +215,7 @@ public class StuInfoController {
      * 导出所有学生的活动证明
      * @return
      */
+    //@RequiresPermissions("allStu:export")
     @GetMapping("/stuinfo/stuList")
     public Result exportAcList(){
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
@@ -234,6 +241,7 @@ public class StuInfoController {
      * @param stuId
      * @return
      */
+    //@RequiresPermissions("stu:delete")
     @DeleteMapping("/stuinfo/stuList")
     public Result deleteStu(@RequestParam String stuId){
         Result result=new Result();
@@ -242,6 +250,7 @@ public class StuInfoController {
         return result;
     }
 
+    //@RequiresPermissions("acExcel:import")
     @PostMapping("/stuinfo/acExcel")
     public Result importAC(@RequestParam String stuId,
                            @RequestParam("ExcelFile") MultipartFile multipartFile) {
@@ -271,6 +280,23 @@ public class StuInfoController {
         } catch (IOException e) {
             e.printStackTrace();
             file.delete();
+        }
+        return result;
+    }
+
+    @PostMapping("/acinfo/acExcel")
+    public Result addAcMonitor(@RequestParam("ExcelFile") MultipartFile multipartFile){
+        Result result=new Result();
+        String fileName = multipartFile.getOriginalFilename();
+        File file = new File("D://"+fileName);
+
+        try {
+            //MultipartFile自带的解析文件的方法
+            multipartFile.transferTo(file);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }

@@ -72,6 +72,8 @@ public class SignInController {
                     result.setResultEnum(ResultEnum.STUDENT_LOGIN);
                 }else if(currentUser.hasRole("admin")) {
                     result.setResultEnum(ResultEnum.ADMAIN_LOGIN);
+                }else if(currentUser.hasRole("monitor")) {
+                    result.setResultEnum(ResultEnum.MONITOR_LOGIN);
                 }else {
                     result.setResultEnum(ResultEnum.Unknown_Account);
                 }

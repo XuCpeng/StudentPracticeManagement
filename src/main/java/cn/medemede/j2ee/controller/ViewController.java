@@ -1,9 +1,13 @@
 package cn.medemede.j2ee.controller;
 
 import cn.medemede.j2ee.model.AcProve;
+import cn.medemede.j2ee.model.Active;
 import cn.medemede.j2ee.model.JUserRole2;
+import cn.medemede.j2ee.model.Stu;
 import cn.medemede.j2ee.repository.AcProveRepository;
+import cn.medemede.j2ee.repository.ActiveRepository;
 import cn.medemede.j2ee.repository.JUserRole2Repository;
+import cn.medemede.j2ee.repository.StuRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +29,10 @@ public class ViewController {
     private AcProveRepository acProveRepository;
     @Resource
     private JUserRole2Repository jUserRole2Repository;
+    @Resource
+    private ActiveRepository activeRepository;
+    @Resource
+    private StuRepository stuRepository;
 
     @GetMapping(value = {"/","/login"})
     public String index(){
@@ -41,14 +49,14 @@ public class ViewController {
         return "sign-up2";
     }
 
-    @GetMapping("/stuinfo/{stuId}")
+    @GetMapping("/stu/{stuId}")
     public String stuInfo(@PathVariable("stuId") String stuId, Model model){
         AcProve acProve=acProveRepository.findOne(stuId);
         model.addAttribute("acProve",acProve);
         return "stu-info";
     }
 
-    @GetMapping("/admininfo/{adminId}")
+    @GetMapping("/admin/{adminId}")
     public String admininfo(@PathVariable("adminId") String adminId,Model model){
         AcProve acProve=acProveRepository.findOne(adminId);
         List<JUserRole2> stuList=jUserRole2Repository.findByRoleName("stu");
@@ -59,9 +67,22 @@ public class ViewController {
                 proveList.add(acProve1);
             }
         }
+        List<Active> activeList=activeRepository.findAll();
         model.addAttribute("acProve",acProve);
         model.addAttribute("proveList",proveList);
+        model.addAttribute("activeList",activeList);
         return "admin-info";
     }
 
+    @GetMapping("/monitor/{stuId}")
+    public String monitorinfo(@PathVariable("stuId") String stuId,Model model){
+
+        Stu monitor=stuRepository.findOne(stuId);
+        List<Stu> stuList=stuRepository.findByLevelAndKlass(monitor.getLevel(),monitor.getKlass());
+        List<Active> activeList=activeRepository.findAll();
+
+        model.addAttribute("monitor",monitor);
+        model.addAttribute("activeList",activeList);
+        return "monitor";
+    }
 }

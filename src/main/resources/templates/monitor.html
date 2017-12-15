@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.bootcss.com/fancybox/3.2.1/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.2.1/jquery.fancybox.min.js"></script>
+    <title> 班长</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            </button>
+            <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
+        </div>
+        <div class="navbar-right">
+            <!--/*@thymesVar id="monitor" type="cn.medemede.j2ee.model.Stu"*/-->
+            <p class="navbar-text" th:text="'【班长】 '+(${monitor.getStuName()}?:'')"></p>
+            <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
+        </div>
+    </div>
+</nav>
+<div class="page-header" style="width: 400px;text-align: center;margin: 70px auto">
+    <h1>活动录入</h1>
+</div>
+
+
+<div>
+    <div class="panel panel-default" style="width: 1200px;margin: 20px auto auto auto">
+        <!-- Default panel contents -->
+        <div class="panel-heading">当前可录入的活动</div>
+        <div class="panel-body">
+            <ul><!--/*@thymesVar id="monitor" type="cn.medemede.j2ee.model.Stu"*/-->
+                <li id="stuId" th:text="'ID: '+(${monitor.getStuId()}?:'')"></li>
+                <li th:text="'姓名: '+(${monitor.getStuName()}?:'')"></li>
+                <li th:text="'性别: '+(${monitor.getSex()}?:'')"></li>
+                <li th:text="'出生日期: '+(${monitor.getBirth()}?:'')"></li>
+                <li th:text="'年级: '+(${monitor.getLevel()}?:'')"></li>
+                <li th:text="'班级: '+(${monitor.getKlass()}?:'')"></li>
+                <li th:text="'入学: '+(${monitor.getStartY()}?:'')+'年'+(${monitor.getStartM()}?:'')+'月'"></li>
+                <li th:text="'学校: '+(${monitor.getSchool()}?:'')"></li>
+            </ul>
+            <a id="showUpdateWindow" href="#updateStu" class="btn btn-info" style="float: right">修改个人信息</a>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-striped table-hover" style="text-align: center">
+            <tr>
+                <td><strong>活动名</strong></td><td><strong>活动时间</strong></td> <td><strong>活动单位</strong></td>
+                <td><strong>创建时间</strong></td><td><strong>过期时间</strong></td><td>操作</td>
+            </tr>
+            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.j2ee.model.Active>"*/-->
+            <tr th:each="ac: ${activeList}">
+                <td th:text="${ac.getAcName()}"></td>
+                <td th:text="${ac.getAcTime()}"></td>
+                <td th:text="${ac.getAcUnit()}"></td>
+                <td th:text="${ac.getCreatDate()}"></td>
+                <td th:text="${ac.getClearDate()}"></td>
+                <td>
+                    <a th:name="${ac.getAcName()}" href="#importStuAC" class="btn btn-info ac-add">录入本班学生</a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div class="container" id="updateStu" style="display: none">
+    <div class="row">
+        <div class="panel panel-default" style="width:560px;margin:0 auto auto auto;text-align:center">
+            <div class="panel-heading"><h4>修改个人信息</h4></div>
+            <div class="panel-body">
+                <br>
+                <form id="update_stu_form" action="/j2ee/stuinfo" method="post">
+                    <div class="input-group">
+                        <span class="input-group-addon">姓名：</span>
+                        <input name="stuName" type="text" class="form-control" th:value="(${monitor.getStuName()}?:'')">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">性别：</span>
+                        <input name="sex" type="text" class="form-control" th:value="(${monitor.getSex()}?:'')" placeholder="男/女">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">出生日期：</span>
+                        <input name="birth" type="date" class="form-control">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">年级：</span>
+                        <input name="level" type="text" class="form-control" th:value="(${monitor.getLevel()}?:'')" placeholder="2015级">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">班级：</span>
+                        <input name="klass" type="text" class="form-control" th:value="(${monitor.getKlass()}?:'')" placeholder="一班">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">入学年份：</span>
+                        <input name="startY" type="text" class="form-control" th:value="(${monitor.getStartY()}?:'')" placeholder="2015">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">入学月份：</span>
+                        <input name="startM" type="text" class="form-control" th:value="(${monitor.getStartM()}?:'')" placeholder="09">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">学校：</span>
+                        <input name="school" type="text" class="form-control" th:value="(${monitor.getSchool()}?:'')" placeholder="山东农业大学">
+                    </div>
+                    <br>
+                    <div>
+                        <input class="btn btn-default" type="submit" value="修改">
+                    </div>
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <input type="hidden" name="stuId" th:value="${monitor.getStuId()}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="importStuAC" style="display: none">
+    <div class="row">
+        <div class="panel panel-default" style="width:560px;margin:0 auto auto auto;text-align:center">
+            <div class="panel-heading"><h4>从Excel表录入活动</h4></div>
+            <div class="panel-body">
+                <br>
+                <form class="navbar-form navbar-left" id="import_ac" action="/stuinfo/acExcel" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" class="btn btn btn-default navbar-btn" name="ExcelFile">
+                    </div>
+                    <input class="btn btn-primary navbar-btn" type="submit" value="提交">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        /*弹出框js*/
+        $("#showUpdateWindow").fancybox({
+            'autoDimensions': false,
+            'centerOnScroll': true,
+            'scrolling': false
+        });
+
+        var options1 = {
+            success:showResponse1,  // 提交后
+            dataType:'json' // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+        };
+        var options2={
+            contentType: false, //必须
+            processData: false, //必须
+            success:showResponse1,  // 提交后
+            dataType:'json' // 'xml', 'script', or 'json' (接受服务端返回的类型.)
+        };
+        $('#update_stu_form').ajaxForm(options1);
+        $('#import_ac').ajaxForm(options2);
+    });
+
+
+    //  提交后
+    function showResponse1(responseText, statusText) {
+        parent.$.fancybox.close();
+        if(statusText==="success"){
+            alert(responseText.msg);
+        }else {
+            alert('提交状态: ' + statusText + '\n\n 返回的内容是: \n' + responseText.msg);
+        }
+        window.location.reload();
+    }
+</script>
+</body>
+</html>

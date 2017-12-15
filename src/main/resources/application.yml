@@ -7,9 +7,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/j2ee?characterEncoding=utf8  #&useSSL=true #118.89.168.177
+    url: jdbc:mysql://118.89.168.177:3306/j2ee?characterEncoding=utf8  #&useSSL=true #118.89.168.177
     username: root
-    password: pengfei
+    password: qwertyuiop123456789
     druid:
       filter:
         stat:
