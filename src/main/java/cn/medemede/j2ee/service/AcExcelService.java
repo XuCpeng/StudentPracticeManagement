@@ -31,7 +31,7 @@ public class AcExcelService {
      * Excel的列数
      */
     private int cellNum=6;
-    private int cellNum2=2;
+    private int cellNum2=4;
 
     public ArrayList<AcBean> importAc(File file) throws IOException {
         ArrayList<AcBean> acBeans;
@@ -69,7 +69,7 @@ public class AcExcelService {
             workbook = new XSSFWorkbook(file);
             //初始化工作表,默认第一个工作表
             sheet = workbook.getSheetAt(0);
-            acBeans=getAc(sheet);
+            acBeans=getAc(sheet,active);
         } catch (InvalidFormatException e) {
             //初始化工作簿，Excel 2007以下
             workbook = new HSSFWorkbook(new FileInputStream(file));

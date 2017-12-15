@@ -8,12 +8,14 @@ import cn.medemede.j2ee.model.Result;
 import cn.medemede.j2ee.repository.AcBeanRepository;
 import cn.medemede.j2ee.repository.AcProveRepository;
 import cn.medemede.j2ee.repository.ActiveRepository;
+import cn.medemede.j2ee.service.AcExcelService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 public class AcInfoController {
@@ -26,6 +28,8 @@ public class AcInfoController {
 
     @Resource
     private AcBeanRepository acBeanRepository;
+    @Resource
+    private AcExcelService acExcelService;
 
     @PostMapping("/acinfo/ac")
     public Result addAcTem(@RequestParam String acName,
@@ -62,7 +66,29 @@ public class AcInfoController {
         for (AcBean acBean:acBeanList){
             System.out.println("stuId:"+acBean.getStuId()+" ");
         }
+        return result;
+    }
 
+    @PostMapping("/acinfo/acExcel")
+    public Result importFormMon(@RequestParam String acName,
+                                @RequestParam("ExcelFile") MultipartFile multipartFile){
+        Result result=new Result();
+        String fileName = multipartFile.getOriginalFilename();
+        File file = new File("D://"+fileName);
+        System.out.println(acName);
+        try {
+            //MultipartFile自带的解析文件的方法
+            multipartFile.transferTo(file);
+            ArrayList<AcBean> acBeans=acExcelService.importFromMon(acName,file);
+            for (AcBean acBean:acBeans){
+                AcProve acProve=acProveRepository.findOne(acBean.getStuId());
+                acProve.getAcList().add(acBean);
+                acProveRepository.save(acProve);
+            }
+            result.setResultEnum(ResultEnum.IMPORT_AC_SUCCESS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

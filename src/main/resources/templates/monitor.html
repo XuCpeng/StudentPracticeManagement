@@ -143,11 +143,12 @@
             <div class="panel-heading"><h4>从Excel表录入活动</h4></div>
             <div class="panel-body">
                 <br>
-                <form class="navbar-form navbar-left" id="import_ac" action="/stuinfo/acExcel" method="post" enctype="multipart/form-data">
+                <form class="navbar-form navbar-left" id="import_ac" action="/j2ee/acinfo/acExcel" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="file" class="btn btn btn-default navbar-btn" name="ExcelFile">
                     </div>
                     <input class="btn btn-primary navbar-btn" type="submit" value="提交">
+                    <input id="acNameHidden" type="hidden" name="acName">
                 </form>
             </div>
         </div>
@@ -157,6 +158,18 @@
 <script>
 
     $(document).ready(function () {
+
+        /*为修改活动的隐藏项赋值*/
+        $(".ac-add").click(function () {
+            $("#acNameHidden").val($(this).attr("name"));
+        });
+        /*弹出框js*/
+        $(".ac-add").fancybox({
+            'autoDimensions': false,
+            'centerOnScroll': true,
+            'scrolling': false
+        });
+
         /*弹出框js*/
         $("#showUpdateWindow").fancybox({
             'autoDimensions': false,

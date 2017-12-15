@@ -284,21 +284,6 @@ public class StuInfoController {
         return result;
     }
 
-    @PostMapping("/acinfo/acExcel")
-    public Result addAcMonitor(@RequestParam("ExcelFile") MultipartFile multipartFile){
-        Result result=new Result();
-        String fileName = multipartFile.getOriginalFilename();
-        File file = new File("D://"+fileName);
 
-        try {
-            //MultipartFile自带的解析文件的方法
-            multipartFile.transferTo(file);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
 }
