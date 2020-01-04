@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver or com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/j2ee?characterEncoding=utf8  #&useSSL=true 
     username: root
-    password: pengfei
+    password: 123456
     druid:
       filter:
         stat:
