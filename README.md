@@ -1,6 +1,7 @@
 # Student Practice Management 学生实践活动管理
 
-使用了Springboot、Shiro、Kaptcha、druid等框架，实现了自定义aspect、自定义枚举类型响应代码、自定义异常，结构清晰、符合RESTful规范。
+使用了Springboot、Shiro、Kaptcha、druid等框架，实现了自定义aspect、自定义枚举类型响应代码、自定义异常。
+结构清晰、符合RESTful规范，使用了大量教新的框架(在当时)，适合初学者使用。
 
 - 能够录入学生活动信息
 - 能够分角色对学生活动信息进行管理
