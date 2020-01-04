@@ -1,7 +1,6 @@
 package cn.medemede.j2ee.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 

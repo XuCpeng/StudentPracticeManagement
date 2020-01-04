@@ -1,13 +1,11 @@
 package cn.medemede.j2ee.model;
 
-import cn.medemede.j2ee.repository.JRolePerm2Repository;
-import cn.medemede.j2ee.repository.JUserRole2Repository;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.annotation.Resource;
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "j_user")

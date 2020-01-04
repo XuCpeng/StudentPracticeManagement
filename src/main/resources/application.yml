@@ -6,10 +6,10 @@ server:
       enabled: true
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://118.89.168.177:3306/j2ee?characterEncoding=utf8  #&useSSL=true #118.89.168.177
+    driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver or com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://182.92.6.40:3306/j2ee?characterEncoding=utf8  #&useSSL=true #118.89.168.177
     username: root
-    password: qwertyuiop123456789
+    password: pengfei
     druid:
       filter:
         stat:

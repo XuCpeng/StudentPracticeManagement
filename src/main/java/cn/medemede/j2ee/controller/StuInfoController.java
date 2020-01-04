@@ -7,7 +7,6 @@ import cn.medemede.j2ee.repository.JUserRole2Repository;
 import cn.medemede.j2ee.repository.StuRepository;
 import cn.medemede.j2ee.service.AcExcelService;
 import cn.medemede.j2ee.service.AcWordService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

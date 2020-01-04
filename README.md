@@ -8,5 +8,7 @@
 
 ## How to use
 1. 安装mysql，并创建一个名为`j2ee`的数据库
-2. 修改`resources/application.yml`中的数据库配置
-3. 运行`J2eeApplication`即可
+2. 如果mysql版本小于8.0，需要更换连接驱动。更改`build.gradle`中的`compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'`的`version`,例如改为`5.1.48`
+3. 修改`resources/application.yml`中的数据库配置，根据需要更改驱动名
+4. 运行`J2eeApplication.java`即可
+5. 访问`http://127.0.0.1:8080/j2ee`

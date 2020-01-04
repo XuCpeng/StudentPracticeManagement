@@ -6,7 +6,6 @@ import cn.medemede.j2ee.repository.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 
