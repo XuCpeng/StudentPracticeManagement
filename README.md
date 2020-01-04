@@ -7,6 +7,6 @@
 - 能够导出活动证明文档
 
 ## How to use
-1、安装mysql，并创建一个名为`j2ee`的数据库
-2、修改`resources/application.yml`中的数据库配置
-3、运行`J2eeApplication`即可
+1. 安装mysql，并创建一个名为`j2ee`的数据库
+2. 修改`resources/application.yml`中的数据库配置
+3. 运行`J2eeApplication`即可
