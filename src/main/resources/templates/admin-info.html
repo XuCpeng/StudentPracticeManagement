@@ -29,7 +29,7 @@
             <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
         </div>
         <div class="navbar-right">
-            <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+            <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
             <p class="navbar-text" th:text="'【管理员】 '+(${acProve.getStuName()}?:'')"></p>
             <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
         </div>
@@ -71,7 +71,7 @@
                 <td><strong>参与活动数量</strong></td><td>操作</td>
             </tr>
 
-            <!--/*@thymesVar id="proveList" type="java.util.List<cn.medemede.j2ee.model.AcProve>"*/-->
+            <!--/*@thymesVar id="proveList" type="java.util.List<cn.medemede.spm.model.AcProve>"*/-->
             <tr th:each="stu: ${proveList}">
                 <td th:text="${stu.getStuId()}"></td>
                 <td th:text="${stu.getStuName()}"></td>
@@ -108,7 +108,7 @@
                 <td><strong>状态</strong></td><td><strong>创建时间</strong></td><td><strong>过期时间</strong></td>
                 <td>操作</td>
             </tr>
-            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.j2ee.model.Active>"*/-->
+            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.spm.model.Active>"*/-->
             <tr th:each="ac: ${activeList}">
                 <td th:text="${ac.getAcName()}"></td>
                 <td th:text="${ac.getAcTime()}"></td>

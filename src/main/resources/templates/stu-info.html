@@ -28,7 +28,7 @@
             <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
         </div>
         <div class="navbar-right">
-            <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+            <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
             <p class="navbar-text" th:text="'【学生】 '+(${acProve.getStuName()}?:'')"></p>
             <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
         </div>
@@ -44,7 +44,7 @@
         <div class="panel-heading">详细信息</div>
         <div class="panel-body">
             <ul>
-                <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                 <li id="stuId" th:text="'ID: '+(${acProve.getStuId()}?:'')"></li>
                 <li th:text="'姓名: '+(${acProve.getStuName()}?:'')"></li>
                 <li th:text="'性别: '+(${acProve.getSex()}?:'')"></li>
@@ -64,7 +64,7 @@
                 <td><strong>时长</strong></td> <td><strong>角色</strong></td> <td><strong>单位</strong></td>
                 <td><strong>证明人</strong></td><td>操作</td>
             </tr>
-            <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+            <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
             <tr th:each="ac,acStat : ${acProve.getAcList()}">
                 <td th:text="${ac.acId}"></td>
                 <td th:text="${ac.acName}"></td>
@@ -133,7 +133,7 @@
                         <input class="btn btn-default" type="submit" value="添加">
                     </div>
 
-                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                     <input type="hidden" name="stuId" th:value="${acProve.getStuId()}">
                 </form>
             </div>
@@ -182,7 +182,7 @@
                         <input class="btn btn-default" type="submit" value="修改">
                     </div>
 
-                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                     <input type="hidden" name="stuId" th:value="${acProve.getStuId()}">
                     <input id="acIdHidden" type="hidden" name="acId">
                 </form>
@@ -241,7 +241,7 @@
                     <div>
                         <input class="btn btn-default" type="submit" value="修改">
                     </div>
-                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                     <input type="hidden" name="stuId" th:value="${acProve.getStuId()}">
                 </form>
             </div>
@@ -260,7 +260,7 @@
                         <input type="file" class="btn btn btn-default navbar-btn" name="ExcelFile">
                     </div>
                     <input class="btn btn-primary navbar-btn" type="submit" value="提交">
-                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                     <input type="hidden" name="stuId" th:value="${acProve.getStuId()}">
                 </form>
             </div>

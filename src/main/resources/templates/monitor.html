@@ -29,7 +29,7 @@
             <a class="navbar-brand" href="/"><strong>活动管理系统</strong></a>
         </div>
         <div class="navbar-right">
-            <!--/*@thymesVar id="monitor" type="cn.medemede.j2ee.model.Stu"*/-->
+            <!--/*@thymesVar id="monitor" type="cn.medemede.spm.model.Stu"*/-->
             <p class="navbar-text" th:text="'【班长】 '+(${monitor.getStuName()}?:'')"></p>
             <a class="btn btn-default navbar-btn" href="/j2ee/logout">注销</a>
         </div>
@@ -45,7 +45,7 @@
         <!-- Default panel contents -->
         <div class="panel-heading">当前可录入的活动</div>
         <div class="panel-body">
-            <ul><!--/*@thymesVar id="monitor" type="cn.medemede.j2ee.model.Stu"*/-->
+            <ul><!--/*@thymesVar id="monitor" type="cn.medemede.spm.model.Stu"*/-->
                 <li id="stuId" th:text="'ID: '+(${monitor.getStuId()}?:'')"></li>
                 <li th:text="'姓名: '+(${monitor.getStuName()}?:'')"></li>
                 <li th:text="'性别: '+(${monitor.getSex()}?:'')"></li>
@@ -64,7 +64,7 @@
                 <td><strong>活动名</strong></td><td><strong>活动时间</strong></td> <td><strong>活动单位</strong></td>
                 <td><strong>创建时间</strong></td><td><strong>过期时间</strong></td><td>操作</td>
             </tr>
-            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.j2ee.model.Active>"*/-->
+            <!--/*@thymesVar id="activeList" type="java.util.List<cn.medemede.spm.model.Active>"*/-->
             <tr th:each="ac: ${activeList}">
                 <td th:text="${ac.getAcName()}"></td>
                 <td th:text="${ac.getAcTime()}"></td>
@@ -130,7 +130,7 @@
                     <div>
                         <input class="btn btn-default" type="submit" value="修改">
                     </div>
-                    <!--/*@thymesVar id="acProve" type="cn.medemede.j2ee.model.AcProve"*/-->
+                    <!--/*@thymesVar id="acProve" type="cn.medemede.spm.model.AcProve"*/-->
                     <input type="hidden" name="stuId" th:value="${monitor.getStuId()}">
                 </form>
             </div>
